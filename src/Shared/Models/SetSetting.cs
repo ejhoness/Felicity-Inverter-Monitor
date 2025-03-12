@@ -2,6 +2,6 @@
 
 public class SetSetting
 {
-    public string Command { get; set; }
-    public string Value { get; set; }
+    public Setting Setting { get; set; }
+    public double Value { get; set; }
 }

@@ -4,6 +4,11 @@ using InverterMon.Shared.Models;
 
 namespace InverterMon.Server.Endpoints.PVLog.GetPVForDay;
 
+public class Request
+{
+    public int DayNumber { get; set; }
+}
+
 public class Endpoint : Endpoint<Request, PVDay>
 {
     public Database Db { get; set; }
@@ -21,7 +26,7 @@ public class Endpoint : Endpoint<Request, PVDay>
 
         if (pvDay is null)
         {
-            await SendNotFoundAsync();
+            await SendNotFoundAsync(c);
 
             return;
         }
@@ -33,8 +38,6 @@ public class Endpoint : Endpoint<Request, PVDay>
                 Id = DateOnly.FromDateTime(DateTime.Now).DayNumber,
                 TotalWattHours = Random.Shared.Next(3000)
             };
-
-            //pvDay.AllocateBuckets(6, 18);
 
             for (var i = 0; i < 97; i++)
                 pvDay.WattPeaks.Add(i.ToString(), Random.Shared.Next(2000));

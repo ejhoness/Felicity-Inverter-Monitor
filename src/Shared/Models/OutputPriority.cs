@@ -2,7 +2,7 @@
 
 public static class OutputPriority
 {
-    public const string SolarFirst = "1";
-    public const string SolarBatteryUtility = "2";
-    public const string UtilityFirst = "0";
+    public const byte SolarFirst = 1;
+    public const byte SolarBatteryUtility = 2;
+    public const byte UtilityFirst = 0;
 }

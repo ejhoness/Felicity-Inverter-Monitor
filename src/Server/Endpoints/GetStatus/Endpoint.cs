@@ -6,7 +6,7 @@ namespace InverterMon.Server.Endpoints.GetStatus;
 
 public class Endpoint : EndpointWithoutRequest<object>
 {
-    public FelicitySolarInverter Inverter { get; set; }
+    public FelicitySolarInverter Inverter { get; set; } = null!;
 
     public override void Configure()
     {
@@ -28,25 +28,25 @@ public class Endpoint : EndpointWithoutRequest<object>
 
     async IAsyncEnumerable<InverterStatus> GetDataStream([EnumeratorCancellation] CancellationToken c)
     {
-        var blank = new InverterStatus();
-
         while (!c.IsCancellationRequested)
         {
             if (Env.IsDevelopment())
             {
-                var status = new InverterStatus();
-                status.OutputVoltage = Random.Shared.Next(240);
-                status.LoadWatts = Random.Shared.Next(3500);
-                status.LoadPercentage = Random.Shared.Next(100);
-                status.BatteryVoltage = Random.Shared.Next(24);
-                status.BatteryChargeCurrent = Random.Shared.Next(20);
-                status.BatteryDischargeCurrent = Random.Shared.Next(300);
-                status.HeatSinkTemperature = Random.Shared.Next(300);
-                status.PVInputCurrent = Random.Shared.Next(300);
-                status.PVInputVoltage = Random.Shared.Next(300);
-                status.PVInputWatt = Random.Shared.Next(1000);
-                status.PV_MaxCapacity = 1000;
-                status.BatteryCapacity = 100;
+                var status = new InverterStatus
+                {
+                    OutputVoltage = Random.Shared.Next(240),
+                    LoadWatts = Random.Shared.Next(3500),
+                    LoadPercentage = Random.Shared.Next(100),
+                    BatteryVoltage = Random.Shared.Next(24),
+                    BatteryChargeCurrent = Random.Shared.Next(20),
+                    BatteryDischargeCurrent = Random.Shared.Next(300),
+                    HeatSinkTemperature = Random.Shared.Next(300),
+                    PVInputCurrent = Random.Shared.Next(300),
+                    PVInputVoltage = Random.Shared.Next(300),
+                    PVInputWatt = Random.Shared.Next(1000),
+                    PV_MaxCapacity = 1000,
+                    BatteryCapacity = 100
+                };
 
                 yield return status;
             }

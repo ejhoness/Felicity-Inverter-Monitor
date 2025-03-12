@@ -2,39 +2,56 @@
 
 public class CurrentSettings
 {
-    public string ChargePriority { get; set; } = "000";
-    public string OutputPriority { get; set; } = "000";
-    public string MaxACChargeCurrent { get; set; } = "000";
-    public string MaxCombinedChargeCurrent { get; set; } = "000";
+    public byte ChargePriority { get; set; }
+    public byte OutputPriority { get; set; }
+    public byte MaxACChargeCurrent { get; set; }
+    public byte MaxCombinedChargeCurrent { get; set; }
 
-    decimal _backToGrid;
-    public decimal BackToGridVoltage { get => _backToGrid; set => _backToGrid = RoundToHalfPoints(value); }
+    double _backToGrid;
 
-    decimal _dischargeCuttOff;
-    public decimal DischargeCuttOffVoltage { get => _dischargeCuttOff; set => _dischargeCuttOff = RoundToOneDecimalPoint(value); }
+    public double BackToGridVoltage
+    {
+        get => _backToGrid;
+        set => _backToGrid = value; //RoundToHalfPoints(value);
+    }
 
-    decimal _bulkVoltage;
-    public decimal BulkChargeVoltage
+    double _dischargeCuttOff;
+
+    public double DischargeCuttOffVoltage
+    {
+        get => _dischargeCuttOff;
+        set => _dischargeCuttOff = value; // RoundToOneDecimalPoint(value);
+    }
+
+    double _bulkVoltage;
+
+    public double BulkChargeVoltage
     {
         get => _bulkVoltage;
-        set => _bulkVoltage = RoundToOneDecimalPoint(value < _floatVoltage ? _floatVoltage : value);
+        set => _bulkVoltage = value; // RoundToOneDecimalPoint(value < _floatVoltage ? _floatVoltage : value);
     }
 
-    decimal _floatVoltage;
-    public decimal FloatChargeVoltage
+    double _floatVoltage;
+
+    public double FloatChargeVoltage
     {
         get => _floatVoltage;
-        set => _floatVoltage = RoundToOneDecimalPoint(value > _bulkVoltage ? _bulkVoltage : value);
+        set => _floatVoltage = value; // RoundToOneDecimalPoint(value > _bulkVoltage ? _bulkVoltage : value);
     }
 
-    decimal _backToBattery;
-    public decimal BackToBatteryVoltage { get => _backToBattery; set => _backToBattery = RoundToHalfPoints(value); }
+    double _backToBattery;
+
+    public double BackToBatteryVoltage
+    {
+        get => _backToBattery;
+        set => _backToBattery = value; //RoundToHalfPoints(value);
+    }
 
     public SystemSpec SystemSpec { get; set; } = new();
 
-    static decimal RoundToHalfPoints(decimal value)
-        => Math.Round(value * 2, MidpointRounding.AwayFromZero) / 2;
+    // static double RoundToHalfPoints(double value)
+    //     => Math.Round(value * 2, MidpointRounding.AwayFromZero) / 2;
 
-    static decimal RoundToOneDecimalPoint(decimal value)
-        => Math.Round(value, 1, MidpointRounding.AwayFromZero);
+    // static double RoundToOneDecimalPoint(double value)
+    //     => Math.Round(value, 1, MidpointRounding.AwayFromZero);
 }

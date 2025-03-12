@@ -20,6 +20,7 @@ bld.WebHost.ConfigureKestrel(o => o.Listen(IPAddress.Any, port));
 bld.Services
    .AddSingleton<UserSettings>()
    .AddSingleton<Database>()
+   .AddSingleton<FelicitySolarInverter>()
    .AddSingleton<JkBms>();
 
 if (!bld.Environment.IsDevelopment())

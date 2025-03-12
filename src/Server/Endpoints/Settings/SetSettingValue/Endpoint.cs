@@ -1,20 +1,33 @@
-﻿namespace InverterMon.Server.Endpoints.Settings.SetSettingValue;
+﻿using InverterMon.Server.InverterService;
+
+namespace InverterMon.Server.Endpoints.Settings.SetSettingValue;
 
 public class Endpoint : Endpoint<Shared.Models.SetSetting, bool>
 {
+    public FelicitySolarInverter Inverter { get; set; }
+
     public override void Configure()
     {
-        Get("settings/set-setting/{Command}/{Value}");
+        Get("settings/set-setting/{Setting}/{Value}");
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(Shared.Models.SetSetting r, CancellationToken c)
     {
-        //todo: set settings using inveter
+        if (Env.IsDevelopment())
+        {
+            await SendAsync(true, cancellation: c);
 
-        // var cmd = new InverterService.Commands.SetSetting(r.Command, r.Value);
-        // Queue.AddCommands(cmd);
-        // await cmd.WhileProcessing(c);
-        // await SendAsync(cmd.Result);
+            return;
+        }
+
+        try
+        {
+            Inverter.SetSetting(r.Setting, r.Value);
+        }
+        catch
+        {
+            await SendAsync(false, cancellation: c);
+        }
     }
 }

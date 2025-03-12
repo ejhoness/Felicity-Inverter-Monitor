@@ -265,7 +265,7 @@
 
 @code{
     private CurrentSettings? settings;
-    private Button currentButton = Button.None;
+    private Button? currentButton;
     private bool isSuccess;
 
     protected override async Task OnInitializedAsync()
@@ -274,7 +274,7 @@
         StateHasChanged();
     }
 
-    private async Task SetChargePriority(string priority)
+    private async Task SetChargePriority(byte priority)
     {
         isSuccess = false;
 
@@ -297,7 +297,7 @@
 
                 break;
             default:
-                currentButton = Button.None;
+                currentButton = null;
 
                 break;
         }
@@ -310,7 +310,7 @@
         }
     }
 
-    private async Task SetOutputPriority(string priority)
+    private async Task SetOutputPriority(byte priority)
     {
         isSuccess = false;
 
@@ -319,7 +319,7 @@
             OutputPriority.SolarFirst => Button.OpSolarFirst,
             OutputPriority.SolarBatteryUtility => Button.OpSolarBatteryUtility,
             OutputPriority.UtilityFirst => Button.OpUtilityFirst,
-            _ => Button.None
+            _ => null
         };
 
         if (await Http.GetStringAsync($"api/settings/set-setting/{Setting.OutputPriority}/{priority}") == "true")
@@ -332,7 +332,7 @@
     private async Task SetVoltage(Setting setting)
     {
         isSuccess = false;
-        decimal value = 0;
+        double value = 0;
 
         switch (setting)
         {
@@ -362,19 +362,19 @@
 
                 break;
             default:
-                currentButton = Button.None;
+                currentButton = null;
 
                 break;
         }
         ;
 
-        if (await Http.GetStringAsync($"api/settings/set-setting/{setting}/{value:00.0}") == "true")
+        if (await Http.GetStringAsync($"api/settings/set-setting/{setting}/{value}") == "true")
         {
             isSuccess = true;
         }
     }
 
-    private async Task SetSetting(Setting settingName, string value)
+    private async Task SetSetting(Setting settingName, byte value)
     {
         if (await Http.GetStringAsync($"api/settings/set-setting/{settingName}/{value}") == "true")
         {
@@ -382,7 +382,7 @@
         }
     }
 
-    private void UpdateLocalSetting(Setting settingName, string value)
+    private void UpdateLocalSetting(Setting settingName, byte value)
     {
         switch (settingName)
         {
@@ -411,7 +411,7 @@
         isSuccess = false;
         await Http.PostAsJsonAsync("api/settings/set-system-spec", settings!.SystemSpec);
         isSuccess = true;
-        currentButton = Button.None;
+        currentButton = null;
     }
 
     private string Spinner(Button button)
@@ -424,7 +424,7 @@
                ? "visually-hidden"
                : "";
 
-    private string Success(Button button, string currentValue, string settingValue)
+    private string Success(Button button, byte currentValue, byte settingValue)
         => (currentButton == button && isSuccess) || currentValue == settingValue
                ? "oi oi-circle-check text-success"
                : "";
@@ -432,16 +432,15 @@
     private string Sanitize(string value)
         => value.StartsWith("0") ? value[1..] : value;
 
-    private enum Button
+    private enum Button : byte
     {
-        None = 0,
-        ChOnlySolar = 1,
-        ChSolarFirst = 2,
-        ChSolarAndUtility = 3,
-        ChUtilityFirst = 4,
-        OpUtilityFirst = 5,
-        OpSolarFirst = 6,
-        OpSolarBatteryUtility = 7,
+        OpUtilityFirst = 1,        //never change this value
+        OpSolarFirst = 2,          //never change this value
+        OpSolarBatteryUtility = 3, //never change this value
+        ChOnlySolar = 4,
+        ChSolarFirst = 5,
+        ChSolarAndUtility = 6,
+        ChUtilityFirst = 7,
         UpdateUserSettings = 8,
         BackToGridVoltage = 9,
         BackToBattery = 10,

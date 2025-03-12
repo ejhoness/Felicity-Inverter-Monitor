@@ -5,20 +5,6 @@ using InverterMon.Shared.Models;
 
 namespace InverterMon.Server.InverterService;
 
-// sealed class StatusData
-// {
-//     public int WorkingMode { get; set; }
-//     public int BatteryChargingStage { get; set; }
-//     public double BatteryVoltage { get; set; }
-//     public int BatteryCurrent { get; set; }
-//     public int BatteryPower { get; set; }
-//     public double AcOutputVoltage { get; set; }
-//     public int AcOutputActivePower { get; set; }
-//     public int LoadPercentage { get; set; }
-//     public double PvInputVoltage { get; set; }
-//     public int PvInputPower { get; set; }
-// }
-
 sealed class SettingsData
 {
     public double BatteryCutOffVoltage { get; set; }
@@ -32,21 +18,32 @@ sealed class SettingsData
     public byte MaxAcChargingCurrent { get; set; }
 }
 
-[SuppressMessage("Performance", "CA1822:Mark members as static")]
+[SuppressMessage("Performance", "CA1822:Mark members as static"),
+ SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
 public sealed class FelicitySolarInverter
 {
-    public InverterStatus Status { get; private set; }
+    public InverterStatus Status { get; } = new();
 
     const byte SlaveAddress = 0x01;
     static SerialPort _serialPort = null!;
 
-    internal void Connect(string portName)
+    internal bool Connect(string portName)
     {
         lock (_lock)
         {
             _serialPort = new(portName, 2400, Parity.None, 8, StopBits.One);
-            _serialPort.Open();
+
+            try
+            {
+                _serialPort.Open();
+            }
+            catch
+            {
+                return false;
+            }
         }
+
+        return true;
     }
 
     static byte[]? _cachedStatusFrame;
@@ -60,11 +57,8 @@ public sealed class FelicitySolarInverter
     {
         var regs = ReadRegisters(StatusStartAddress, StatusRegisterCount);
 
-        // var status = new StatusData
-        // {
         //     WorkingMode = regs[0],                 // 0x1101: Working mode (offset 0)
         //     BatteryChargingStage = regs[1],        // 0x1102: Battery charging stage (offset 1)
-        // };
 
         Status.BatteryVoltage = regs[7] / 100.0;  // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
         Status.BatteryDischargeCurrent = regs[8]; // 0x1109: Battery current (offset 8) -- signed value
@@ -103,7 +97,7 @@ public sealed class FelicitySolarInverter
         return settings;
     }
 
-    internal void SetSetting(Setting setting, float value)
+    internal void SetSetting(Setting setting, double value)
     {
         ushort registerAddress;
 
@@ -154,7 +148,23 @@ public sealed class FelicitySolarInverter
                 throw new ArgumentException("Invalid setting!");
         }
 
-        WriteSingleRegister(registerAddress, (ushort)value);
+        var settingValue = (ushort)value;
+
+        // Build request frame:
+        // [Slave Address][Function Code 0x06][Register Address Hi][Register Address Lo]
+        // [Value Hi][Value Lo][CRC Lo][CRC Hi]
+        var frame = new byte[8];
+        frame[0] = SlaveAddress;
+        frame[1] = 0x06;
+        frame[2] = (byte)(registerAddress >> 8);
+        frame[3] = (byte)(registerAddress & 0xFF);
+        frame[4] = (byte)(settingValue >> 8);
+        frame[5] = (byte)(settingValue & 0xFF);
+        var crc = CalculateCrc(frame, 6);
+        frame[6] = (byte)(crc & 0xFF);
+        frame[7] = (byte)(crc >> 8);
+
+        SendModbusRequest(frame);
     }
 
     internal void Close()
@@ -210,25 +220,6 @@ public sealed class FelicitySolarInverter
             registers[i] = (short)((response[3 + i * 2] << 8) | response[3 + i * 2 + 1]);
 
         return registers;
-    }
-
-    static void WriteSingleRegister(ushort registerAddress, ushort value)
-    {
-        // Build request frame:
-        // [Slave Address][Function Code 0x06][Register Address Hi][Register Address Lo]
-        // [Value Hi][Value Lo][CRC Lo][CRC Hi]
-        var frame = new byte[8];
-        frame[0] = SlaveAddress;
-        frame[1] = 0x06;
-        frame[2] = (byte)(registerAddress >> 8);
-        frame[3] = (byte)(registerAddress & 0xFF);
-        frame[4] = (byte)(value >> 8);
-        frame[5] = (byte)(value & 0xFF);
-        var crc = CalculateCrc(frame, 6);
-        frame[6] = (byte)(crc & 0xFF);
-        frame[7] = (byte)(crc >> 8);
-
-        SendModbusRequest(frame);
     }
 
     static readonly object _lock = new();
