@@ -2,8 +2,8 @@
 
 public static class ChargePriority
 {
-    public const string SolarFirst = "01";
-    public const string SolarAndUtility = "02";
-    public const string OnlySolar = "03";
-    public const string UtilityFirst = "00";
+    public const string SolarFirst = "1";
+    public const string SolarAndUtility = "2";
+    public const string OnlySolar = "3";
+    public const string UtilityFirst = "0";
 }

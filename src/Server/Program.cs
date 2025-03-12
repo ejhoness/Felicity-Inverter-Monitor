@@ -4,8 +4,8 @@ using System.Net;
 using InverterMon.Server;
 using InverterMon.Server.BatteryService;
 using InverterMon.Server.InverterService;
-using InverterMon.Server.Persistance;
-using InverterMon.Server.Persistance.Settings;
+using InverterMon.Server.Persistence;
+using InverterMon.Server.Persistence.Settings;
 
 //avoid parsing issues with non-english cultures
 var cultureInfo = new CultureInfo("en-US");
@@ -18,15 +18,14 @@ _ = int.TryParse(bld.Configuration["LaunchSettings:WebPort"] ?? "80", out var po
 bld.WebHost.ConfigureKestrel(o => o.Listen(IPAddress.Any, port));
 
 bld.Services
+   .AddSingleton<CurrentStatus>()
    .AddSingleton<UserSettings>()
-   .AddSingleton<CommandQueue>()
    .AddSingleton<Database>()
    .AddSingleton<JkBms>();
 
 if (!bld.Environment.IsDevelopment())
 {
     bld.Services
-       .AddHostedService<CommandExecutor>()
        .AddHostedService<StatusRetriever>();
 }
 

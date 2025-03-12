@@ -1,12 +1,12 @@
-﻿using InverterMon.Server.InverterService;
-using InverterMon.Shared.Models;
+﻿using InverterMon.Shared.Models;
 using System.Runtime.CompilerServices;
+using InverterMon.Server.InverterService;
 
 namespace InverterMon.Server.Endpoints.GetStatus;
 
 public class Endpoint : EndpointWithoutRequest<object>
 {
-    public CommandQueue Queue { get; set; }
+    public CurrentStatus CurrentStatus { get; set; }
 
     public override void Configure()
     {
@@ -34,7 +34,7 @@ public class Endpoint : EndpointWithoutRequest<object>
         {
             if (Env.IsDevelopment())
             {
-                var status = Queue.StatusCommand.Result;
+                var status = CurrentStatus.Result;
                 status.OutputVoltage = Random.Shared.Next(240);
                 status.LoadWatts = Random.Shared.Next(3500);
                 status.LoadPercentage = Random.Shared.Next(100);
@@ -51,11 +51,8 @@ public class Endpoint : EndpointWithoutRequest<object>
                 yield return status;
             }
             else
-            {
-                yield return Queue.IsAcceptingCommands
-                                 ? Queue.StatusCommand.Result
-                                 : blank;
-            }
+                yield return CurrentStatus.Result;
+
             await Task.Delay(1000, c);
         }
     }

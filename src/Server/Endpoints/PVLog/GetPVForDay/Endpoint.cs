@@ -1,5 +1,5 @@
-﻿using InverterMon.Server.Persistance;
-using InverterMon.Server.Persistance.Settings;
+﻿using InverterMon.Server.Persistence;
+using InverterMon.Server.Persistence.Settings;
 using InverterMon.Shared.Models;
 
 namespace InverterMon.Server.Endpoints.PVLog.GetPVForDay;

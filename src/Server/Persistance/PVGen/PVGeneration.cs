@@ -1,4 +1,4 @@
-﻿namespace InverterMon.Server.Persistance.PVGen;
+﻿namespace InverterMon.Server.Persistence.PVGen;
 
 public class PVGeneration
 {

@@ -1,4 +1,4 @@
-﻿using InverterMon.Server.Persistance.Settings;
+﻿using InverterMon.Server.Persistence.Settings;
 using InverterMon.Shared.Models;
 using SerialPortLib;
 

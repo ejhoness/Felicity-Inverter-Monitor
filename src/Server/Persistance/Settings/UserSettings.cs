@@ -1,7 +1,7 @@
-﻿using InverterMon.Server.Persistance.PVGen;
+﻿using InverterMon.Server.Persistence.PVGen;
 using InverterMon.Shared.Models;
 
-namespace InverterMon.Server.Persistance.Settings;
+namespace InverterMon.Server.Persistence.Settings;
 
 public class UserSettings
 {
