@@ -3,7 +3,13 @@ using InverterMon.Server.Persistence.Settings;
 
 namespace InverterMon.Server.InverterService;
 
-class StatusRetriever(Database db, FelicitySolarInverter inverter, UserSettings userSettings, IConfiguration config, ILogger<StatusRetriever> log)
+class StatusRetriever(
+    Database db,
+    FelicitySolarInverter inverter,
+    UserSettings userSettings,
+    IConfiguration config,
+    ILogger<StatusRetriever> log,
+    IHostApplicationLifetime appLife)
     : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken c)
@@ -15,6 +21,8 @@ class StatusRetriever(Database db, FelicitySolarInverter inverter, UserSettings 
             log.LogCritical("Unable to connect to the inverter at [{port}]. Retrying in 5 seconds...", port);
             await Task.Delay(5000);
         }
+
+        appLife.ApplicationStopping.Register(inverter.Close);
 
         while (!c.IsCancellationRequested)
         {
