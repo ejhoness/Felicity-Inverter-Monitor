@@ -45,7 +45,8 @@
                         <div class="container text-center fw-bold p-0">
                             <div class="row bg-light rounded">
                                 <div class="progress p-0" style="height:2px;">
-                                    <span class="progress-bar" role="progressbar" style="width: @RoundToWholeNumber(status?.LoadPercentage)%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
+                                    <span class="progress-bar" role="progressbar" style="width: @RoundToWholeNumber(status?.LoadPercentage)%" aria-valuenow="25"
+                                          aria-valuemin="0" aria-valuemax="100"></span>
                                 </div>
                                 <div class="col">
                                     <div class="fs-1 text-danger">@status?.LoadWatts</div>
@@ -86,7 +87,8 @@
                         <div class="container text-center fw-bold p-0">
                             <div class="row bg-light rounded">
                                 <div class="progress p-0" style="height:2px;">
-                                    <span class="progress-bar" role="progressbar" style="width: @status?.PVPotential%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
+                                    <span class="progress-bar" role="progressbar" style="width: @status?.PVPotential%" aria-valuenow="25" aria-valuemin="0"
+                                          aria-valuemax="100"></span>
                                 </div>
                                 <div class="col">
                                     <div class="fs-1 text-success">@status?.PVInputWatt</div>
@@ -124,7 +126,8 @@
                         <div class="container text-center m-0 p-0">
                             <div class="row m-0 p-0">
                                 <div class="progress p-0" style="height:2px;">
-                                    <span class="progress-bar" role="progressbar" style="width: @status?.BatteryDischargePotential%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
+                                    <span class="progress-bar" role="progressbar" style="width: @status?.BatteryDischargePotential%" aria-valuenow="25"
+                                          aria-valuemin="0" aria-valuemax="100"></span>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -196,10 +199,10 @@
         onStatusRetrievalError -= NullifyStatus;
     }
 
-    private static decimal RoundToWholeNumber(decimal? val)
+    private static double RoundToWholeNumber(double? val)
         => Math.Round(val ?? 0, 0);
 
-    private static decimal RoundToOneDecimal(decimal? val)
+    private static double RoundToOneDecimal(double? val)
         => Math.Round(val ?? 0, 1);
 
     private static string TemperatureCss()
@@ -259,7 +262,7 @@
         }
     }
 
-    private static decimal GetCRate()
+    private static double GetCRate()
     {
         if (status?.BatteryChargeCRate > 0)
             return Math.Round(status.BatteryChargeCRate, 2);

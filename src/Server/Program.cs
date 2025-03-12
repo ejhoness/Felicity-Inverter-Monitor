@@ -18,7 +18,6 @@ _ = int.TryParse(bld.Configuration["LaunchSettings:WebPort"] ?? "80", out var po
 bld.WebHost.ConfigureKestrel(o => o.Listen(IPAddress.Any, port));
 
 bld.Services
-   .AddSingleton<CurrentStatus>()
    .AddSingleton<UserSettings>()
    .AddSingleton<Database>()
    .AddSingleton<JkBms>();

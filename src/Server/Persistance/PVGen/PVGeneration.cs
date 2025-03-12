@@ -4,7 +4,7 @@ public class PVGeneration
 {
     public int Id { get; set; }
     public Dictionary<string, int> WattPeaks { get; set; } = new();
-    public decimal TotalWattHours { get; set; }
+    public double TotalWattHours { get; set; }
 
     public void SetWattPeaks(int newValue)
     {
@@ -19,7 +19,7 @@ public class PVGeneration
             WattPeaks[key] = newValue;
     }
 
-    public void SetTotalWattHours(decimal totalWattHours)
+    public void SetTotalWattHours(double totalWattHours)
     {
         TotalWattHours = totalWattHours;
     }

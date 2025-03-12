@@ -8,16 +8,16 @@ public class InverterStatus
     public int BatteryCapacity { get; set; } = 100;
 
     [JsonPropertyName("b")]
-    public decimal BatteryChargeCRate => BatteryChargeCurrent == 0 ? 0 : Convert.ToDecimal(BatteryChargeCurrent) / BatteryCapacity;
+    public double BatteryChargeCRate => BatteryChargeCurrent == 0 ? 0 : Convert.ToDouble(BatteryChargeCurrent) / BatteryCapacity;
 
     [JsonPropertyName("c")]
     public int BatteryChargeCurrent { get; set; }
 
     [JsonPropertyName("d")]
-    public int BatteryChargeWatts => BatteryChargeCurrent == 0 ? 0 : Convert.ToInt32(BatteryChargeCurrent * BatteryVoltage);
+    public int BatteryChargeWatts { get; set; }
 
     [JsonPropertyName("e")]
-    public decimal BatteryDischargeCRate => BatteryDischargeCurrent == 0 ? 0 : Convert.ToDecimal(BatteryDischargeCurrent) / BatteryCapacity;
+    public double BatteryDischargeCRate => BatteryDischargeCurrent == 0 ? 0 : Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity;
 
     [JsonPropertyName("f")]
     public int BatteryDischargeCurrent { get; set; }
@@ -26,37 +26,37 @@ public class InverterStatus
     public int BatteryDischargePotential => BatteryDischargeCurrent > 0 ? Convert.ToInt32(Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity * 100) : 0;
 
     [JsonPropertyName("h")]
-    public int BatteryDischargeWatts => BatteryDischargeCurrent == 0 ? 0 : Convert.ToInt32(BatteryDischargeCurrent * BatteryVoltage);
+    public int BatteryDischargeWatts { get; set; }
 
     [JsonPropertyName("i")]
-    public decimal BatteryVoltage { get; set; }
+    public double BatteryVoltage { get; set; }
 
     [JsonPropertyName("j")]
     public int GridUsageWatts => GridVoltage < 10 ? 0 : LoadWatts + BatteryChargeWatts - (PVInputWatt + BatteryDischargeWatts);
 
     [JsonPropertyName("k")]
-    public decimal GridVoltage { get; set; }
+    public double GridVoltage { get; set; }
 
     [JsonPropertyName("l")]
     public int HeatSinkTemperature { get; set; }
 
     [JsonPropertyName("m")]
-    public decimal LoadCurrent => LoadWatts == 0 ? 0 : LoadWatts / OutputVoltage;
+    public double LoadCurrent => LoadWatts == 0 ? 0 : LoadWatts / OutputVoltage;
 
     [JsonPropertyName("n")]
-    public decimal LoadPercentage { get; set; }
+    public int LoadPercentage { get; set; }
 
     [JsonPropertyName("o")]
     public int LoadWatts { get; set; }
 
     [JsonPropertyName("p")]
-    public decimal OutputVoltage { get; set; }
+    public double OutputVoltage { get; set; }
 
     [JsonPropertyName("q")]
-    public decimal PVInputCurrent { get; set; }
+    public double PVInputCurrent { get; set; }
 
     [JsonPropertyName("r")]
-    public decimal PVInputVoltage { get; set; }
+    public double PVInputVoltage { get; set; }
 
     [JsonPropertyName("s")]
     public int PVInputWatt
@@ -69,13 +69,13 @@ public class InverterStatus
 
             pvInputWatt = value;
             var interval = (DateTime.Now - pvInputWattHourLastComputed).TotalSeconds;
-            PVInputWattHour += value / (3600 / Convert.ToDecimal(interval));
+            PVInputWattHour += value / (3600 / Convert.ToDouble(interval));
             pvInputWattHourLastComputed = DateTime.Now;
         }
     }
 
     [JsonPropertyName("t")]
-    public decimal PVInputWattHour { get; private set; }
+    public double PVInputWattHour { get; private set; }
 
     [JsonPropertyName("u")]
     public int PV_MaxCapacity { get; set; }
@@ -86,7 +86,7 @@ public class InverterStatus
     int pvInputWatt;
     DateTime pvInputWattHourLastComputed;
 
-    public void RestorePVWattHours(decimal accruedWattHours)
+    public void RestorePVWattHours(double accruedWattHours)
     {
         PVInputWattHour = accruedWattHours;
         pvInputWattHourLastComputed = DateTime.Now;

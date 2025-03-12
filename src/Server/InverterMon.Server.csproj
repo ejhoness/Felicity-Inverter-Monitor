@@ -41,12 +41,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Remove="appsettings.Development.json"/>
-        <None Remove="InverterMon-log.db"/>
-        <None Remove="InverterMon.db"/>
-        <None Remove="InverterService\protocol.pdf"/>
         <None Include="../changelog.md" Link="changelog.md"/>
-        <None Remove="Properties\PublishProfiles\FolderProfile.pubxml"/>
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ namespace InverterMon.Server.Endpoints.GetStatus;
 
 public class Endpoint : EndpointWithoutRequest<object>
 {
-    public CurrentStatus CurrentStatus { get; set; }
+    public FelicitySolarInverter Inverter { get; set; }
 
     public override void Configure()
     {
@@ -34,7 +34,7 @@ public class Endpoint : EndpointWithoutRequest<object>
         {
             if (Env.IsDevelopment())
             {
-                var status = CurrentStatus.Result;
+                var status = new InverterStatus();
                 status.OutputVoltage = Random.Shared.Next(240);
                 status.LoadWatts = Random.Shared.Next(3500);
                 status.LoadPercentage = Random.Shared.Next(100);
@@ -51,7 +51,7 @@ public class Endpoint : EndpointWithoutRequest<object>
                 yield return status;
             }
             else
-                yield return CurrentStatus.Result;
+                yield return Inverter.Status;
 
             await Task.Delay(1000, c);
         }
