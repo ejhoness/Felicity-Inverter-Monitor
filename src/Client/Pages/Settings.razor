@@ -28,7 +28,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <input @bind-value=settings.MaxCombinedChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                     <button type="button" class="btn btn-light d-inline m-1"
-                            @onclick="()=>SetSetting(Setting.CombinedChargeCurrent,settings.MaxCombinedChargeCurrent)">
+                            @onclick="()=>SetChargeCurrent(Setting.CombinedChargeCurrent,settings.MaxCombinedChargeCurrent)">
                         <span class="@Spinner(Button.MaxCombinedChargeCurrent)"></span>
                         <span class="@Hidden(Button.MaxCombinedChargeCurrent)">Save</span>
                     </button>
@@ -41,7 +41,8 @@
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <input @bind-value=settings.MaxACChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
-                    <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetSetting(Setting.UtilityChargeCurrent,settings.MaxACChargeCurrent)">
+                    <button type="button" class="btn btn-light d-inline m-1"
+                            @onclick="()=>SetChargeCurrent(Setting.UtilityChargeCurrent,settings.MaxACChargeCurrent)">
                         <span class="@Spinner(Button.MaxUtilityChargeCurrent)"></span>
                         <span class="@Hidden(Button.MaxUtilityChargeCurrent)">Save</span>
                     </button>
@@ -374,10 +375,26 @@
         }
     }
 
-    private async Task SetSetting(Setting settingName, byte value)
+    private async Task SetChargeCurrent(Setting settingName, byte value)
     {
+        isSuccess = false;
+
+        switch (settingName)
+        {
+            case Setting.CombinedChargeCurrent:
+                currentButton = Button.MaxCombinedChargeCurrent;
+
+                break;
+
+            case Setting.UtilityChargeCurrent:
+                currentButton = Button.MaxUtilityChargeCurrent;
+
+                break;
+        }
+
         if (await Http.GetStringAsync($"api/settings/set-setting/{settingName}/{value}") == "true")
         {
+            isSuccess = true;
             UpdateLocalSetting(settingName, value);
         }
     }
