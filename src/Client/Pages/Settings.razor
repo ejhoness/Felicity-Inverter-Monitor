@@ -23,7 +23,7 @@
         <div class="tab-pane fade show active" id="settings" role="tabpanel">
             <div class="row border-primary bg-light px-3">
                 <div class="col-6 my-auto fw-bold">
-                    Max Combined Charge Current:
+                    Max Combined Charge Current (A):
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <input @bind-value=settings.MaxCombinedChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
@@ -37,7 +37,7 @@
 
             <div class="row border-primary bg-light px-3 mt-1">
                 <div class="col-6 my-auto fw-bold">
-                    Max Grid Charge Current:
+                    Max Grid Charge Current (A):
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <input @bind-value=settings.MaxACChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
@@ -104,7 +104,7 @@
         <div class="tab-pane fade" id="voltages" role="tabpanel">
             <div class="row border-primary bg-light px-3 mt-0">
                 <div class="col-6 my-auto fw-bold">
-                    Bulk Charge Voltage:
+                    Bulk Charge Voltage (V):
                 </div>
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
@@ -120,7 +120,7 @@
             </div>
             <div class="row border-primary bg-light px-3 mt-1">
                 <div class="col-6 my-auto fw-bold">
-                    Float Charge Voltage:
+                    Float Charge Voltage (V):
                 </div>
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
@@ -136,7 +136,7 @@
             </div>
             <div class="row border-primary bg-light px-3 mt-1">
                 <div class="col-6 my-auto fw-bold">
-                    Discharge Cutoff Voltage:
+                    Discharge Cutoff Voltage (V):
                 </div>
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
@@ -153,7 +153,7 @@
             </div>
             <div class="row border-primary bg-light px-3 mt-1">
                 <div class="col-6 my-auto fw-bold">
-                    Back To Grid Voltage:
+                    Back To Grid Voltage (V):
                 </div>
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
@@ -169,7 +169,7 @@
             </div>
             <div class="row border-primary bg-light px-3 mt-1">
                 <div class="col-6 my-auto fw-bold">
-                    Back To Battery Voltage:
+                    Back To Battery Voltage (V):
                 </div>
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
@@ -206,7 +206,7 @@
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
-                        <div style="width:4.75rem;">
+                        <div style="width:6rem;">
                             <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.BatteryCapacity>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Ah</div>
@@ -219,7 +219,7 @@
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
-                        <div style="width:4.75rem;">
+                        <div style="width:6rem;">
                             <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.BatteryNominalVoltage>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">V</div>
@@ -232,7 +232,7 @@
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
-                        <div style="width:4.2rem;">
+                        <div style="width:6rem;">
                             <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.SunlightStartHour>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Hrs</div>
@@ -245,7 +245,7 @@
                 </div>
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
-                        <div style="width:4.2rem;">
+                        <div style="width:6rem;">
                             <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.SunlightEndHour>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Hrs</div>
