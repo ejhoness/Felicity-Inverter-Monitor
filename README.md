@@ -1,4 +1,4 @@
-# Hybrid Inverter Monitor
+# FelicitySolar Inverter Monitor
 
 <img src="screenshot.png"/>
 
