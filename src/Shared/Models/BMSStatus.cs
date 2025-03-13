@@ -65,7 +65,7 @@ public class BMSStatus
     public double AvgPowerWatts => Math.Round(AvgCurrentAmps * PackVoltage, 0, MidpointRounding.AwayFromZero);
 
     [JsonPropertyName("u")]
-    public float PackNominalVoltage { get; set; }
+    public double PackNominalVoltage { get; set; }
 
     public string GetTimeString()
     {

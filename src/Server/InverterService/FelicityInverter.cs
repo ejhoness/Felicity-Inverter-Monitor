@@ -57,19 +57,39 @@ public sealed class FelicitySolarInverter
     {
         var regs = ReadRegisters(StatusStartAddress, StatusRegisterCount);
 
-        //     WorkingMode = regs[0],                 // 0x1101: Working mode (offset 0)
+        lock (_lock)
+        {
+            if (!_serialPort.IsOpen)
+                return;
+        }
+
         //     BatteryChargingStage = regs[1],        // 0x1102: Battery charging stage (offset 1)
 
-        Status.BatteryVoltage = regs[7] / 100.0;  // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
-        Status.BatteryDischargeCurrent = regs[8]; // 0x1109: Battery current (offset 8) -- signed value
-        Status.BatteryChargeCurrent = regs[8];    // 0x1109: Battery current (offset 8) -- signed value
-        Status.BatteryDischargeWatts = regs[9];   // 0x110A: Battery power (offset 9) -- signed value
-        Status.BatteryChargeWatts = regs[9];      // 0x110A: Battery power (offset 9) -- signed value
-        Status.OutputVoltage = regs[16] / 10.0;   // 0x1111: AC output voltage (offset 0x1111 - 0x1101 = 16)
-        Status.LoadWatts = regs[29];              // 0x111E: AC output active power (offset 0x111E - 0x1101 = 29)
-        Status.LoadPercentage = regs[31];         // 0x1120: Load percentage (offset 0x1120 - 0x1101 = 31)
-        Status.PVInputVoltage = regs[37] / 10.0;  // 0x1126: PV input voltage (offset 0x1126 - 0x1101 = 37)
-        Status.PVInputWatt = regs[41];            // 0x112A: PV input power (offset 0x112A - 0x1101 = 41) -- signed value
+        Status.WorkingMode = (WorkingMode)regs[0]; // 0x1101: Working mode (offset 0)
+        Status.BatteryVoltage = regs[7] / 100.0;   // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
+
+        var disCur = ChargeStatus(regs[8]); // 0x1109: Battery current (offset 8) -- signed value
+        Status.BatteryDischargeCurrent = disCur.IsDischarge ? disCur.PositiveValue : 0;
+        Status.BatteryChargeCurrent = disCur.IsDischarge is false ? disCur.PositiveValue : 0;
+
+        var disPow = ChargeStatus(regs[9]); // 0x110A: Battery power (offset 9) -- signed value
+        Status.BatteryDischargeWatts = disPow.IsDischarge ? disPow.PositiveValue : 0;
+        Status.BatteryChargeWatts = disPow.IsDischarge is false ? disPow.PositiveValue : 0;
+
+        Status.OutputVoltage = regs[16] / 10.0;  // 0x1111: AC output voltage (offset 0x1111 - 0x1101 = 16)
+        Status.GridVoltage = regs[22] / 10.0;    // 0x1111: AC output voltage (offset 0x1117 - 0x1101 = 22)
+        Status.LoadWatts = regs[29];             // 0x111E: AC output active power (offset 0x111E - 0x1101 = 29)
+        Status.LoadPercentage = regs[31];        // 0x1120: Load percentage (offset 0x1120 - 0x1101 = 31)
+        Status.PVInputVoltage = regs[37] / 10.0; // 0x1126: PV input voltage (offset 0x1126 - 0x1101 = 37)
+        Status.PVInputWatt = regs[41];           // 0x112A: PV input power (offset 0x112A - 0x1101 = 41) -- signed value
+
+        static (bool IsDischarge, short PositiveValue) ChargeStatus(short value)
+        {
+            var isNegative = value < 0;
+            var positiveValue = isNegative ? (short)-value : value;
+
+            return (isNegative, positiveValue);
+        }
     }
 
     // The settings registers we need are located between 0x211F and 0x2159.
@@ -206,6 +226,9 @@ public sealed class FelicitySolarInverter
 
         var response = SendModbusRequest(frame);
 
+        if (response.Length == 0)
+            return [];
+
         // Expected response structure:
         // [Slave Address][Function Code][Byte Count][Data...][CRC Lo][CRC Hi]
 
@@ -228,6 +251,9 @@ public sealed class FelicitySolarInverter
     {
         lock (_lock) //prevent concurrent access
         {
+            if (!_serialPort.IsOpen)
+                return [];
+
             _serialPort.DiscardInBuffer();
             _serialPort.DiscardOutBuffer();
 

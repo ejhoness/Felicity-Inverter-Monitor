@@ -38,7 +38,7 @@ public class InverterStatus
     public double GridVoltage { get; set; }
 
     [JsonPropertyName("l")]
-    public int HeatSinkTemperature { get; set; }
+    public WorkingMode WorkingMode { get; set; }
 
     [JsonPropertyName("m")]
     public double LoadCurrent => LoadWatts == 0 ? 0 : LoadWatts / OutputVoltage;
@@ -69,7 +69,7 @@ public class InverterStatus
 
             pvInputWatt = value;
             var interval = (DateTime.Now - pvInputWattHourLastComputed).TotalSeconds;
-            PVInputWattHour += value / (3600 / Convert.ToDouble(interval));
+            PVInputWattHour += value / (3600 / interval);
             pvInputWattHourLastComputed = DateTime.Now;
         }
     }
@@ -81,7 +81,7 @@ public class InverterStatus
     public int PV_MaxCapacity { get; set; }
 
     [JsonPropertyName("v")]
-    public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100) : 0;
+    public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(PVInputWatt / PV_MaxCapacity * 100) : 0;
 
     int pvInputWatt;
     DateTime pvInputWattHourLastComputed;

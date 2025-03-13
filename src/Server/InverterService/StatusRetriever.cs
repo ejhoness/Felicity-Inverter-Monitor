@@ -22,9 +22,11 @@ class StatusRetriever(
             await Task.Delay(5000);
         }
 
+        log.LogInformation("Connected to inverter at device address: [{port}]", port);
+
         appLife.ApplicationStopping.Register(inverter.Close);
 
-        while (!c.IsCancellationRequested)
+        while (!c.IsCancellationRequested && !appLife.ApplicationStopping.IsCancellationRequested)
         {
             inverter.Status.BatteryCapacity = userSettings.BatteryCapacity;
             inverter.Status.PV_MaxCapacity = userSettings.PV_MaxCapacity;
@@ -41,9 +43,16 @@ class StatusRetriever(
                 continue;
             }
 
-            db.UpdateTodaysPvGeneration(c);
+            try
+            {
+                db.UpdateTodaysPvGeneration(c);
+            }
+            catch
+            {
+                //do nothing
+            }
 
-            await Task.Delay(2000);
+            await Task.Delay(2000, CancellationToken.None);
         }
     }
 }

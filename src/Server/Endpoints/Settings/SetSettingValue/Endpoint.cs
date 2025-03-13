@@ -14,16 +14,17 @@ public class Endpoint : Endpoint<Shared.Models.SetSetting, bool>
 
     public override async Task HandleAsync(Shared.Models.SetSetting r, CancellationToken c)
     {
-        if (Env.IsDevelopment())
-        {
-            await SendAsync(true, cancellation: c);
-
-            return;
-        }
+        // if (Env.IsDevelopment())
+        // {
+        //     await SendAsync(true, cancellation: c);
+        //
+        //     return;
+        // }
 
         try
         {
             Inverter.SetSetting(r.Setting, r.Value);
+            await SendAsync(true, cancellation: c);
         }
         catch
         {

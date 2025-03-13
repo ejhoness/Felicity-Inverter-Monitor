@@ -12,3 +12,14 @@ public enum Setting
     BackToGrid = 8,
     BackToBattery = 9
 }
+
+public enum WorkingMode
+{
+    POWER = 0,
+    STANDBY = 1,
+    BYPASS = 2,
+    BATTERY = 3,
+    FAULT = 4,
+    LINE = 5,
+    CHARGING = 6
+}

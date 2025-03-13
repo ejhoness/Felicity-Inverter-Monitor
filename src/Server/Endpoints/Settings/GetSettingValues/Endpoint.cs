@@ -17,25 +17,25 @@ public class Endpoint : EndpointWithoutRequest<CurrentSettings>
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        if (Env.IsDevelopment())
-        {
-            var res = new CurrentSettings
-            {
-                BackToBatteryVoltage = 48.1,
-                BackToGridVoltage = 48.2,
-                FloatChargeVoltage = 48.3,
-                ChargePriority = ChargePriority.OnlySolar,
-                DischargeCuttOffVoltage = 48.4,
-                BulkChargeVoltage = 48.5,
-                MaxACChargeCurrent = 10,
-                MaxCombinedChargeCurrent = 20,
-                OutputPriority = OutputPriority.SolarFirst,
-                SystemSpec = UserSettings.ToSystemSpec()
-            };
-            await SendAsync(res, cancellation: c);
-
-            return;
-        }
+        // if (Env.IsDevelopment())
+        // {
+        //     var res = new CurrentSettings
+        //     {
+        //         BackToBatteryVoltage = 48.1,
+        //         BackToGridVoltage = 48.2,
+        //         FloatChargeVoltage = 48.3,
+        //         ChargePriority = ChargePriority.OnlySolar,
+        //         DischargeCuttOffVoltage = 48.4,
+        //         BulkChargeVoltage = 48.5,
+        //         MaxACChargeCurrent = 10,
+        //         MaxCombinedChargeCurrent = 20,
+        //         OutputPriority = OutputPriority.SolarFirst,
+        //         SystemSpec = UserSettings.ToSystemSpec()
+        //     };
+        //     await SendAsync(res, cancellation: c);
+        //
+        //     return;
+        // }
 
         try
         {

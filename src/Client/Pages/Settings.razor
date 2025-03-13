@@ -375,11 +375,11 @@
         }
     }
 
-    private async Task SetChargeCurrent(Setting settingName, byte value)
+    private async Task SetChargeCurrent(Setting setting, byte value)
     {
         isSuccess = false;
 
-        switch (settingName)
+        switch (setting)
         {
             case Setting.CombinedChargeCurrent:
                 currentButton = Button.MaxCombinedChargeCurrent;
@@ -392,10 +392,12 @@
                 break;
         }
 
-        if (await Http.GetStringAsync($"api/settings/set-setting/{settingName}/{value}") == "true")
+        var xxx = $"api/settings/set-setting/{setting}/{value}";
+
+        if (await Http.GetStringAsync($"api/settings/set-setting/{setting}/{value}") == "true")
         {
             isSuccess = true;
-            UpdateLocalSetting(settingName, value);
+            UpdateLocalSetting(setting, value);
         }
     }
 

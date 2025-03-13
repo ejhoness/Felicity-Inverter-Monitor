@@ -7,6 +7,7 @@ namespace InverterMon.Server.Endpoints.GetStatus;
 public class Endpoint : EndpointWithoutRequest<object>
 {
     public FelicitySolarInverter Inverter { get; set; } = null!;
+    public IHostApplicationLifetime AppLife { get; set; } = null!;
 
     public override void Configure()
     {
@@ -28,32 +29,32 @@ public class Endpoint : EndpointWithoutRequest<object>
 
     async IAsyncEnumerable<InverterStatus> GetDataStream([EnumeratorCancellation] CancellationToken c)
     {
-        while (!c.IsCancellationRequested)
+        while (!c.IsCancellationRequested && !AppLife.ApplicationStopping.IsCancellationRequested)
         {
-            if (Env.IsDevelopment())
-            {
-                var status = new InverterStatus
-                {
-                    OutputVoltage = Random.Shared.Next(240),
-                    LoadWatts = Random.Shared.Next(3500),
-                    LoadPercentage = Random.Shared.Next(100),
-                    BatteryVoltage = Random.Shared.Next(24),
-                    BatteryChargeCurrent = Random.Shared.Next(20),
-                    BatteryDischargeCurrent = Random.Shared.Next(300),
-                    HeatSinkTemperature = Random.Shared.Next(300),
-                    PVInputCurrent = Random.Shared.Next(300),
-                    PVInputVoltage = Random.Shared.Next(300),
-                    PVInputWatt = Random.Shared.Next(1000),
-                    PV_MaxCapacity = 1000,
-                    BatteryCapacity = 100
-                };
+            // if (Env.IsDevelopment())
+            // {
+            //     var status = new InverterStatus
+            //     {
+            //         OutputVoltage = Random.Shared.Next(240),
+            //         LoadWatts = Random.Shared.Next(3500),
+            //         LoadPercentage = Random.Shared.Next(100),
+            //         BatteryVoltage = Random.Shared.Next(24),
+            //         BatteryChargeCurrent = Random.Shared.Next(20),
+            //         BatteryDischargeCurrent = Random.Shared.Next(300),
+            //         HeatSinkTemperature = Random.Shared.Next(300),
+            //         PVInputCurrent = Random.Shared.Next(300),
+            //         PVInputVoltage = Random.Shared.Next(300),
+            //         PVInputWatt = Random.Shared.Next(1000),
+            //         PV_MaxCapacity = 1000,
+            //         BatteryCapacity = 100
+            //     };
+            //
+            //     yield return status;
+            // }
+            // else
+            yield return Inverter.Status;
 
-                yield return status;
-            }
-            else
-                yield return Inverter.Status;
-
-            await Task.Delay(1000, c);
+            await Task.Delay(2000, c);
         }
     }
 }
