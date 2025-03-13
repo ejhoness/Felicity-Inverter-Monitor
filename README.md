@@ -4,19 +4,19 @@
 
 ---
 
-This application allows you to monitor Felicity inverters in realtime via a RJ45 to USB cable as an alternative to the wifi module and cloud based apps.
+This application allows you to monitor Felicity inverters in realtime via a [RJ45 to USB cable](https://www.aliexpress.com/item/1005007504153777.html) as an alternative to the wifi module and cloud based apps.
 
-For this to work, you need to connect a computer such as a raspberry/orange pi or any other computer (Linux or Windows) to the inverter via USB to the inverters RJ45 port marked RS232 which is typically on the left next to the BMS port. This application has not been tested on MacOs but might work if you can figure out the correct drivers and port names.
+For this to work, you need to connect a computer such as a Raspberry/Orange Pi or any other computer (Linux or Windows) to the inverter via USB port to the inverters RJ45 port marked RS232 which is typically on the left next to the BMS port. This application has not been tested on MacOS but might work if you can figure out the correct drivers and port names.
 
 Once your inverter is connected via data cable, a new device should appear on Linux at `/dev/ttyUSBX` or `COMX` in Windows. Open up the `appsettings.json` file and make sure the `DeviceAddress` setting correctly points to your USB device such as `/dev/ttyUSB1` or `COM1`.
 
 After the correct USB device path is setup, all you have to do is execute the `InverterMon.Server` executable. The binaries can be downloaded from the [releases section](https://github.com/dj-nitehawk/Felicity-Inverter-Monitor/releases). Make sure to choose the correct architecture (x64/arm) for your machine.
 
-After the application has started successfully, you can simply open up a web browser and navigate to `http://ip.address.of.machine` or `http://localhost` if the app is running in the same machine, to see the dashboard. It may take up to 5 seconds for the data to show up initially.
+After the application has started successfully, you can simply open up a web browser and navigate to `http://ip.address.of.machine` or `http://localhost` if the app is running in the same machine as your web browser, to see the dashboard. It may take up to 5 seconds for the data to show up initially.
 
-If you have a firewall, please open port `80` to facilitate communication.
+If you have a firewall, please open port `80` to facilitate communication, pr change the port in the `appsettings.json` file.
 
-In order to make the application/server automatically start at boot on Linux, follow the below procedure to create a `systemd` service.
+In order to make the application/server automatically start at boot in Linux, follow the below procedure to create a `systemd` service.
 
 # Auto Start Configuration Steps
 
