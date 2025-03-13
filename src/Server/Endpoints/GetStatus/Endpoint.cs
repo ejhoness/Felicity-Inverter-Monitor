@@ -31,28 +31,27 @@ public class Endpoint : EndpointWithoutRequest<object>
     {
         while (!c.IsCancellationRequested && !AppLife.ApplicationStopping.IsCancellationRequested)
         {
-            // if (Env.IsDevelopment())
-            // {
-            //     var status = new InverterStatus
-            //     {
-            //         OutputVoltage = Random.Shared.Next(240),
-            //         LoadWatts = Random.Shared.Next(3500),
-            //         LoadPercentage = Random.Shared.Next(100),
-            //         BatteryVoltage = Random.Shared.Next(24),
-            //         BatteryChargeCurrent = Random.Shared.Next(20),
-            //         BatteryDischargeCurrent = Random.Shared.Next(300),
-            //         HeatSinkTemperature = Random.Shared.Next(300),
-            //         PVInputCurrent = Random.Shared.Next(300),
-            //         PVInputVoltage = Random.Shared.Next(300),
-            //         PVInputWatt = Random.Shared.Next(1000),
-            //         PV_MaxCapacity = 1000,
-            //         BatteryCapacity = 100
-            //     };
-            //
-            //     yield return status;
-            // }
-            // else
-            yield return Inverter.Status;
+            if (Env.IsDevelopment())
+            {
+                var status = new InverterStatus
+                {
+                    OutputVoltage = Random.Shared.Next(240),
+                    LoadWatts = Random.Shared.Next(3500),
+                    LoadPercentage = Random.Shared.Next(100),
+                    BatteryVoltage = Random.Shared.Next(24),
+                    BatteryChargeCurrent = Random.Shared.Next(20),
+                    BatteryDischargeCurrent = Random.Shared.Next(300),
+                    PVInputCurrent = Random.Shared.Next(300),
+                    PVInputVoltage = Random.Shared.Next(300),
+                    PVInputWatt = Random.Shared.Next(1000),
+                    PV_MaxCapacity = 1000,
+                    BatteryCapacity = 100
+                };
+
+                yield return status;
+            }
+            else
+                yield return Inverter.Status;
 
             await Task.Delay(2000, c);
         }

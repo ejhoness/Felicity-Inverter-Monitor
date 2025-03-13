@@ -128,7 +128,7 @@ public class JkBms
         Status.PackVoltage = 25.6f;
         Status.IsCharging = true;
         Status.AvgCurrentAmps = 21.444f;
-        Status.CapacityPct = 90;
+        Status.CapacityPct = 50;
         Status.PackCapacity = 320;
         Status.PackNominalVoltage = 51.2f;
         Status.IsWarning = false;

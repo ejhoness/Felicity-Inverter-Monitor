@@ -23,12 +23,11 @@ bld.Services
    .AddSingleton<FelicitySolarInverter>()
    .AddSingleton<JkBms>();
 
-// if (!bld.Environment.IsDevelopment())
-// {
-bld.Services
-   .AddHostedService<StatusRetriever>();
-
-// }
+if (!bld.Environment.IsDevelopment())
+{
+    bld.Services
+       .AddHostedService<StatusRetriever>();
+}
 
 bld.Services.AddFastEndpoints(o => o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All);
 

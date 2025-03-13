@@ -69,14 +69,12 @@ public class BMSStatus
 
     public string GetTimeString()
     {
-        var currentTime = DateTime.UtcNow
-                                  .AddHours(5).AddMinutes(30); //only supports IST time zone :-(
-
+        var currentTime = DateTime.UtcNow.AddHours(5).AddMinutes(30); //only supports IST time zone :-(
         var futureTime = currentTime.AddHours(TimeHrs).AddMinutes(TimeMins);
 
-        if (futureTime.Date == currentTime.Date)
-            return futureTime.ToString("h:mm tt");
-
-        return futureTime.ToString("dddd h:mm tt");
+        return futureTime.ToString(
+            futureTime.Date == currentTime.Date
+                ? "h:mm tt"
+                : "dddd h:mm tt");
     }
 }
