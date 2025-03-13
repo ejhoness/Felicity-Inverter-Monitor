@@ -8,7 +8,7 @@ public class UserSettings
     public int Id { get; set; } = 1;
     public int PV_MaxCapacity { get; set; } = 1000;
     public int BatteryCapacity { get; set; } = 100;
-    public double BatteryNominalVoltage { get; set; } = 25.6f;
+    public double BatteryNominalVoltage { get; set; } = 25.6;
     public int SunlightStartHour { get; set; } = 6;
     public int SunlightEndHour { get; set; } = 18;
     public int[] PVGraphRange => new[] { 0, (SunlightEndHour - SunlightStartHour) * 60 };
