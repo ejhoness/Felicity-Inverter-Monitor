@@ -1,4 +1,5 @@
-﻿using InverterMon.Server.Persistence.Settings;
+﻿using InverterMon.Server.Persistence;
+using InverterMon.Server.Persistence.Settings;
 using InverterMon.Shared.Models;
 using SerialPortLib;
 
@@ -13,7 +14,12 @@ public class JkBms
     readonly AmpValQueue _recentAmpReadings = new(5); //avg value over 5 readings (~5secs)
     readonly SerialPortInput _bms = new();
 
-    public JkBms(UserSettings userSettings, IConfiguration config, ILogger<JkBms> logger, IWebHostEnvironment env, IHostApplicationLifetime appLife)
+    public JkBms(Database _, //essential to restore user settings first
+                 UserSettings userSettings,
+                 IConfiguration config,
+                 ILogger<JkBms> logger,
+                 IWebHostEnvironment env,
+                 IHostApplicationLifetime appLife)
     {
         if (env.IsDevelopment())
         {
@@ -130,7 +136,7 @@ public class JkBms
         Status.AvgCurrentAmps = 21.444f;
         Status.CapacityPct = 50;
         Status.PackCapacity = 320;
-        Status.PackNominalVoltage = 51.2f;
+        Status.PackNominalVoltage = 48;
         Status.IsWarning = false;
         Status.TimeHrs = 24;
         Status.TimeMins = 10;
