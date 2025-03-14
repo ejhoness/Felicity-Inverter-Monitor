@@ -53,7 +53,7 @@ public class InverterStatus
     public double OutputVoltage { get; set; }
 
     [JsonPropertyName("q")]
-    public double PVInputCurrent { get; set; }
+    public double PVInputCurrent => PVInputWatt == 0 ? 0 : PVInputWatt / PVInputVoltage;
 
     [JsonPropertyName("r")]
     public double PVInputVoltage { get; set; }
