@@ -1,3 +1,3 @@
 ## changelog
 
-- fix pv input current not showing
+- fix pv potential progress bar not showing

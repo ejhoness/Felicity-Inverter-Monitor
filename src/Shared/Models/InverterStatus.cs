@@ -81,7 +81,7 @@ public class InverterStatus
     public int PV_MaxCapacity { get; set; }
 
     [JsonPropertyName("v")]
-    public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(PVInputWatt / PV_MaxCapacity * 100) : 0;
+    public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100) : 0;
 
     int pvInputWatt;
     DateTime pvInputWattHourLastComputed;
