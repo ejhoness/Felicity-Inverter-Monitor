@@ -18,13 +18,14 @@ jobs:
             linux-musl-arm,
             linux-musl-x64,
             linux-x64,
+            win-x64,
           ]
       fail-fast: true
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.2.2
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v4.3.0
         with:
           dotnet-version: 9.x
 
@@ -37,7 +38,7 @@ jobs:
           zip -r -9 ../${{ matrix.rid }}.zip ./*
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2.2.1
         if: ${{ !contains(github.ref, 'beta') }}
         with:
           draft: false

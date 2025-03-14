@@ -1,3 +1,3 @@
 ## changelog
 
-- initial release
+- fix pv input current not showing
