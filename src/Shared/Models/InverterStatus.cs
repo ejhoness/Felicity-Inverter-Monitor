@@ -8,7 +8,7 @@ public class InverterStatus
     public int BatteryCapacity { get; set; } = 100;
 
     [JsonPropertyName("b")]
-    public double BatteryChargeCRate => BatteryChargeCurrent == 0 ? 0 : Convert.ToDouble(BatteryChargeCurrent) / BatteryCapacity;
+    public double BatteryChargeCRate => BatteryChargeCurrent == 0 ? 0 : Math.Round(Convert.ToDouble(BatteryChargeCurrent) / BatteryCapacity, 2);
 
     [JsonPropertyName("c")]
     public int BatteryChargeCurrent { get; set; }
@@ -17,7 +17,7 @@ public class InverterStatus
     public int BatteryChargeWatts { get; set; }
 
     [JsonPropertyName("e")]
-    public double BatteryDischargeCRate => BatteryDischargeCurrent == 0 ? 0 : Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity;
+    public double BatteryDischargeCRate => BatteryDischargeCurrent == 0 ? 0 : Math.Round(Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity, 2);
 
     [JsonPropertyName("f")]
     public int BatteryDischargeCurrent { get; set; }
@@ -35,13 +35,13 @@ public class InverterStatus
     public int GridUsageWatts => GridVoltage < 10 ? 0 : LoadWatts + BatteryChargeWatts - (PVInputWatt + BatteryDischargeWatts);
 
     [JsonPropertyName("k")]
-    public double GridVoltage { get; set; }
+    public int GridVoltage { get; set; }
 
     [JsonPropertyName("l")]
     public WorkingMode WorkingMode { get; set; }
 
     [JsonPropertyName("m")]
-    public double LoadCurrent => LoadWatts == 0 ? 0 : LoadWatts / OutputVoltage;
+    public double LoadCurrent => LoadWatts == 0 ? 0 : Math.Round(LoadWatts / OutputVoltage, 1);
 
     [JsonPropertyName("n")]
     public int LoadPercentage { get; set; }
@@ -53,7 +53,7 @@ public class InverterStatus
     public double OutputVoltage { get; set; }
 
     [JsonPropertyName("q")]
-    public double PVInputCurrent => PVInputWatt == 0 ? 0 : PVInputWatt / PVInputVoltage;
+    public double PVInputCurrent => PVInputWatt == 0 ? 0 : Math.Round(PVInputWatt / PVInputVoltage, 1);
 
     [JsonPropertyName("r")]
     public double PVInputVoltage { get; set; }
@@ -69,7 +69,7 @@ public class InverterStatus
 
             pvInputWatt = value;
             var interval = (DateTime.Now - pvInputWattHourLastComputed).TotalSeconds;
-            PVInputWattHour += value / (3600 / interval);
+            PVInputWattHour += Math.Round(value / (3600 / interval), 2);
             pvInputWattHourLastComputed = DateTime.Now;
         }
     }

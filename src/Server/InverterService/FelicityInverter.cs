@@ -65,8 +65,8 @@ public sealed class FelicitySolarInverter
 
         //     BatteryChargingStage = regs[1],        // 0x1102: Battery charging stage (offset 1)
 
-        Status.WorkingMode = (WorkingMode)regs[0]; // 0x1101: Working mode (offset 0)
-        Status.BatteryVoltage = regs[7] / 100.0;   // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
+        Status.WorkingMode = (WorkingMode)regs[0];              // 0x1101: Working mode (offset 0)
+        Status.BatteryVoltage = Math.Round(regs[7] / 100.0, 1); // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
 
         var disCur = ChargeStatus(regs[8]); // 0x1109: Battery current (offset 8) -- signed value
         Status.BatteryDischargeCurrent = disCur.IsDischarge ? disCur.PositiveValue : 0;
@@ -76,12 +76,12 @@ public sealed class FelicitySolarInverter
         Status.BatteryDischargeWatts = disPow.IsDischarge ? disPow.PositiveValue : 0;
         Status.BatteryChargeWatts = disPow.IsDischarge is false ? disPow.PositiveValue : 0;
 
-        Status.OutputVoltage = regs[16] / 10.0;  // 0x1111: AC output voltage (offset 0x1111 - 0x1101 = 16)
-        Status.GridVoltage = regs[22] / 10.0;    // 0x1111: AC output voltage (offset 0x1117 - 0x1101 = 22)
-        Status.LoadWatts = regs[29];             // 0x111E: AC output active power (offset 0x111E - 0x1101 = 29)
-        Status.LoadPercentage = regs[31];        // 0x1120: Load percentage (offset 0x1120 - 0x1101 = 31)
-        Status.PVInputVoltage = regs[37] / 10.0; // 0x1126: PV input voltage (offset 0x1126 - 0x1101 = 37)
-        Status.PVInputWatt = regs[41];           // 0x112A: PV input power (offset 0x112A - 0x1101 = 41) -- signed value
+        Status.OutputVoltage = Math.Round(regs[16] / 10.0, 0);  // 0x1111: AC output voltage (offset 0x1111 - 0x1101 = 16)
+        Status.GridVoltage = Convert.ToInt16(regs[22] / 10.0);  // 0x1111: AC output voltage (offset 0x1117 - 0x1101 = 22)
+        Status.LoadWatts = regs[29];                            // 0x111E: AC output active power (offset 0x111E - 0x1101 = 29)
+        Status.LoadPercentage = regs[31];                       // 0x1120: Load percentage (offset 0x1120 - 0x1101 = 31)
+        Status.PVInputVoltage = Math.Round(regs[37] / 10.0, 0); // 0x1126: PV input voltage (offset 0x1126 - 0x1101 = 37)
+        Status.PVInputWatt = regs[41];                          // 0x112A: PV input power (offset 0x112A - 0x1101 = 41) -- signed value
 
         static (bool IsDischarge, short PositiveValue) ChargeStatus(short value)
         {

@@ -7,7 +7,7 @@
         <NoWarn>CS8618;CA2016</NoWarn>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <NuGetAuditMode>direct</NuGetAuditMode>
-        <LangVersion>13</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
