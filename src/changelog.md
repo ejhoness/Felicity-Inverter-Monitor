@@ -1,4 +1,5 @@
 ## changelog
 
-- prevent serialization errors for inverter status
-- round floating point numbers on serverside before sending data to client
+- show battery charging stage
+- optimize updating of inverter settings
+- optimize inverter status response
