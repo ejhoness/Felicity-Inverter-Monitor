@@ -128,6 +128,7 @@ public sealed class FelicitySolarInverter
             _ => throw new ArgumentException("Invalid setting!")
         };
 
+        var registerAddress = (ushort)setting;
         var settingValue = (ushort)value;
 
         // Build request frame:
@@ -136,8 +137,8 @@ public sealed class FelicitySolarInverter
         var frame = new byte[8];
         frame[0] = SlaveAddress;
         frame[1] = 0x06;
-        frame[2] = (byte)((ushort)setting >> 8);
-        frame[3] = (byte)((ushort)setting & 0xFF);
+        frame[2] = (byte)(registerAddress >> 8);
+        frame[3] = (byte)(registerAddress & 0xFF);
         frame[4] = (byte)(settingValue >> 8);
         frame[5] = (byte)(settingValue & 0xFF);
         var crc = CalculateCrc(frame, 6);
