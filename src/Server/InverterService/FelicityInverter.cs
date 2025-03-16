@@ -120,12 +120,8 @@ public sealed class FelicitySolarInverter
     {
         value *= setting switch
         {
-            Setting.DischargeCutOff or
-                Setting.BulkVoltage or
-                Setting.FloatVoltage or
-                Setting.BackToGrid or
-                Setting.BackToBattery => 10,
-            _ => throw new ArgumentException("Invalid setting!")
+            Setting.DischargeCutOff or Setting.BulkVoltage or Setting.FloatVoltage or Setting.BackToGrid or Setting.BackToBattery => 10,
+            _ => 1
         };
 
         var registerAddress = (ushort)setting;
