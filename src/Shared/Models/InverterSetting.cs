@@ -13,7 +13,7 @@ public enum Setting
     BackToBattery = 9
 }
 
-public enum WorkingMode
+public enum WorkingMode : short
 {
     POWER = 0,
     STANDBY = 1,

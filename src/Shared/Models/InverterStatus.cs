@@ -69,18 +69,18 @@ public class InverterStatus
 
             pvInputWatt = value;
             var interval = (DateTime.Now - pvInputWattHourLastComputed).TotalSeconds;
-            PVInputWattHour += Math.Round(value / (3600 / interval), 2);
+            PVInputWattHour += value / (3600 / interval);
             pvInputWattHourLastComputed = DateTime.Now;
         }
     }
 
-    [JsonPropertyName("t")]
+    [JsonIgnore]
     public double PVInputWattHour { get; private set; }
 
-    [JsonPropertyName("u")]
+    [JsonPropertyName("t")]
     public int PV_MaxCapacity { get; set; }
 
-    [JsonPropertyName("v")]
+    [JsonPropertyName("u")]
     public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100) : 0;
 
     int pvInputWatt;

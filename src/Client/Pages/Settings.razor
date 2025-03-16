@@ -403,6 +403,7 @@
 
     private void UpdateLocalSetting(Setting settingName, byte value)
     {
+        // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
         switch (settingName)
         {
             case Setting.OutputPriority:

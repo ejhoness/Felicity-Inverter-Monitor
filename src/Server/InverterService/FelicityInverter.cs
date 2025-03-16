@@ -77,7 +77,7 @@ public sealed class FelicitySolarInverter
         Status.BatteryChargeWatts = disPow.IsDischarge is false ? disPow.PositiveValue : 0;
 
         Status.OutputVoltage = Math.Round(regs[16] / 10.0, 0);  // 0x1111: AC output voltage (offset 0x1111 - 0x1101 = 16)
-        Status.GridVoltage = Convert.ToInt16(regs[22] / 10.0);  // 0x1111: AC output voltage (offset 0x1117 - 0x1101 = 22)
+        Status.GridVoltage = Convert.ToInt32(regs[22] / 10.0);  // 0x1111: AC output voltage (offset 0x1117 - 0x1101 = 22)
         Status.LoadWatts = regs[29];                            // 0x111E: AC output active power (offset 0x111E - 0x1101 = 29)
         Status.LoadPercentage = regs[31];                       // 0x1120: Load percentage (offset 0x1120 - 0x1101 = 31)
         Status.PVInputVoltage = Math.Round(regs[37] / 10.0, 0); // 0x1126: PV input voltage (offset 0x1126 - 0x1101 = 37)
