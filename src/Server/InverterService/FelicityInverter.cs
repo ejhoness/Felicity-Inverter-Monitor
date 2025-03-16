@@ -7,15 +7,15 @@ namespace InverterMon.Server.InverterService;
 
 sealed class SettingsData
 {
-    public double BatteryCutOffVoltage { get; set; }
-    public double BatteryCvChargingVoltage { get; set; }
-    public double BatteryFloatingChargingVoltage { get; set; }
-    public double BatteryBackToChargeVoltage { get; set; }
-    public double BatteryBackToDischargeVoltage { get; set; }
-    public byte OutputSourcePriority { get; set; }
-    public byte ChargingSourcePriority { get; set; }
-    public byte MaxChargingCurrent { get; set; }
-    public byte MaxAcChargingCurrent { get; set; }
+    public double BatteryCutOffVoltage { get; init; }
+    public double BatteryCvChargingVoltage { get; init; }
+    public double BatteryFloatingChargingVoltage { get; init; }
+    public double BatteryBackToChargeVoltage { get; init; }
+    public double BatteryBackToDischargeVoltage { get; init; }
+    public byte OutputSourcePriority { get; init; }
+    public byte ChargingSourcePriority { get; init; }
+    public byte MaxChargingCurrent { get; init; }
+    public byte MaxAcChargingCurrent { get; init; }
 }
 
 [SuppressMessage("Performance", "CA1822:Mark members as static"),
@@ -119,54 +119,15 @@ public sealed class FelicitySolarInverter
 
     internal void SetSetting(Setting setting, double value)
     {
-        ushort registerAddress;
-
-        switch (setting)
+        value *= setting switch
         {
-            case Setting.DischargeCutOff:
-                registerAddress = 0x211F;
-                value *= 10; // scale volts to register value
-
-                break;
-            case Setting.BulkVoltage:
-                registerAddress = 0x2122;
-                value *= 10;
-
-                break;
-            case Setting.FloatVoltage:
-                registerAddress = 0x2123;
-                value *= 10;
-
-                break;
-            case Setting.BackToGrid:
-                registerAddress = 0x2156;
-                value *= 10;
-
-                break;
-            case Setting.BackToBattery:
-                registerAddress = 0x2159;
-                value *= 10;
-
-                break;
-            case Setting.OutputPriority:
-                registerAddress = 0x212A; // No scaling needed for priority values (0,1,2 etc.)
-
-                break;
-            case Setting.ChargePriority:
-                registerAddress = 0x212C;
-
-                break;
-            case Setting.CombinedChargeCurrent:
-                registerAddress = 0x212E; // Value in amperes (1A per unit)
-
-                break;
-            case Setting.UtilityChargeCurrent:
-                registerAddress = 0x2130;
-
-                break;
-            default:
-                throw new ArgumentException("Invalid setting!");
-        }
+            Setting.DischargeCutOff or
+                Setting.BulkVoltage or
+                Setting.FloatVoltage or
+                Setting.BackToGrid or
+                Setting.BackToBattery => 10,
+            _ => throw new ArgumentException("Invalid setting!")
+        };
 
         var settingValue = (ushort)value;
 
@@ -176,8 +137,8 @@ public sealed class FelicitySolarInverter
         var frame = new byte[8];
         frame[0] = SlaveAddress;
         frame[1] = 0x06;
-        frame[2] = (byte)(registerAddress >> 8);
-        frame[3] = (byte)(registerAddress & 0xFF);
+        frame[2] = (byte)((ushort)setting >> 8);
+        frame[3] = (byte)((ushort)setting & 0xFF);
         frame[4] = (byte)(settingValue >> 8);
         frame[5] = (byte)(settingValue & 0xFF);
         var crc = CalculateCrc(frame, 6);

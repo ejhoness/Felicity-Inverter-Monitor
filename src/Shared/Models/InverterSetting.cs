@@ -1,16 +1,16 @@
 ﻿namespace InverterMon.Shared.Models;
 
-public enum Setting
+public enum Setting : ushort
 {
-    ChargePriority = 1,
-    OutputPriority = 2,
-    CombinedChargeCurrent = 3,
-    UtilityChargeCurrent = 4,
-    BulkVoltage = 5,
-    FloatVoltage = 6,
-    DischargeCutOff = 7,
-    BackToGrid = 8,
-    BackToBattery = 9
+    ChargePriority = 0x212C,
+    OutputPriority = 0x212A,
+    CombinedChargeCurrent = 0x212E,
+    UtilityChargeCurrent = 0x2130,
+    BulkVoltage = 0x2122,
+    FloatVoltage = 0x2123,
+    DischargeCutOff = 0x211F,
+    BackToGrid = 0x2156,
+    BackToBattery = 0x2159
 }
 
 public enum WorkingMode : short
