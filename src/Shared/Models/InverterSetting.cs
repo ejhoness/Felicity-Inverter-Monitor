@@ -1,4 +1,6 @@
-﻿namespace InverterMon.Shared.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace InverterMon.Shared.Models;
 
 public enum Setting : ushort
 {
@@ -13,7 +15,8 @@ public enum Setting : ushort
     BackToBattery = 0x2159
 }
 
-public enum WorkingMode : short
+[SuppressMessage("ReSharper", "InconsistentNaming")]
+public enum WorkingMode : ushort
 {
     POWER = 0,
     STANDBY = 1,
@@ -22,4 +25,12 @@ public enum WorkingMode : short
     FAULT = 4,
     LINE = 5,
     CHARGING = 6
+}
+
+[SuppressMessage("ReSharper", "InconsistentNaming")]
+public enum ChargeMode : ushort
+{
+    BULK = 1,
+    ABSORPTION = 2,
+    FLOAT = 3
 }

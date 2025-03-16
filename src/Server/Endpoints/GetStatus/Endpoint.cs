@@ -35,6 +35,7 @@ public class Endpoint : EndpointWithoutRequest<object>
             {
                 var status = new InverterStatus
                 {
+                    ChargeMode = ChargeMode.ABSORPTION,
                     OutputVoltage = Random.Shared.Next(240),
                     LoadWatts = Random.Shared.Next(3500),
                     LoadPercentage = Random.Shared.Next(100),

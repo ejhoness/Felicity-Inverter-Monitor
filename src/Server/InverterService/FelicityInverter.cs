@@ -63,9 +63,8 @@ public sealed class FelicitySolarInverter
                 return;
         }
 
-        //     BatteryChargingStage = regs[1],        // 0x1102: Battery charging stage (offset 1)
-
         Status.WorkingMode = (WorkingMode)regs[0];              // 0x1101: Working mode (offset 0)
+        Status.ChargeMode = (ChargeMode)regs[1];                // 0x1102: Battery charging stage (offset 1)
         Status.BatteryVoltage = Math.Round(regs[7] / 100.0, 1); // 0x1108: Battery voltage (offset 0x1108 - 0x1101 = 7)
 
         var disCur = ChargeStatus(regs[8]); // 0x1109: Battery current (offset 8) -- signed value

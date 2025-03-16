@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+// ReSharper disable InconsistentNaming
+
 namespace InverterMon.Shared.Models;
 
 public class InverterStatus
@@ -82,6 +84,9 @@ public class InverterStatus
 
     [JsonPropertyName("u")]
     public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100) : 0;
+
+    [JsonPropertyName("v")]
+    public ChargeMode ChargeMode { get; set; }
 
     int pvInputWatt;
     DateTime pvInputWattHourLastComputed;
