@@ -42,7 +42,7 @@ public class Endpoint : EndpointWithoutRequest<object>
                     BatteryVoltage = Random.Shared.Next(24),
                     BatteryChargeCurrent = Random.Shared.Next(20),
                     BatteryDischargeCurrent = Random.Shared.Next(300),
-                    PVInputVoltage = Random.Shared.Next(300),
+                    PVInputVoltage = 0, //Random.Shared.Next(300),
                     PVInputWatt = Random.Shared.Next(1000),
                     PV_MaxCapacity = 1000,
                     BatteryCapacity = 100

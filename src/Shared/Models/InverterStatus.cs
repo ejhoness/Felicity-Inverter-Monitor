@@ -25,7 +25,7 @@ public class InverterStatus
     public int BatteryDischargeCurrent { get; set; }
 
     [JsonPropertyName("g")]
-    public int BatteryDischargePotential => BatteryDischargeCurrent > 0 ? Convert.ToInt32(Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity * 100) : 0;
+    public int BatteryDischargePotential => BatteryDischargeCurrent == 0 ? 00 : Convert.ToInt32(Convert.ToDouble(BatteryDischargeCurrent) / BatteryCapacity * 100);
 
     [JsonPropertyName("h")]
     public int BatteryDischargeWatts { get; set; }
@@ -55,7 +55,7 @@ public class InverterStatus
     public double OutputVoltage { get; set; }
 
     [JsonPropertyName("q")]
-    public double PVInputCurrent => PVInputWatt == 0 ? 0 : Math.Round(PVInputWatt / PVInputVoltage, 1);
+    public double PVInputCurrent => PVInputWatt == 0 || PVInputVoltage == 0 ? 0 : Math.Round(PVInputWatt / PVInputVoltage, 1);
 
     [JsonPropertyName("r")]
     public double PVInputVoltage { get; set; }
@@ -83,7 +83,7 @@ public class InverterStatus
     public int PV_MaxCapacity { get; set; }
 
     [JsonPropertyName("u")]
-    public int PVPotential => PVInputWatt > 0 ? Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100) : 0;
+    public int PVPotential => PVInputWatt == 0 ? 0 : Convert.ToInt32(Convert.ToDouble(PVInputWatt) / PV_MaxCapacity * 100);
 
     [JsonPropertyName("v")]
     public ChargeMode ChargeMode { get; set; }
