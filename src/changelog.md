@@ -1,5 +1,3 @@
 ## changelog
 
-- show battery charging stage
-- optimize updating of inverter settings
-- optimize inverter status response
+- fix charge mode display when not charging
