@@ -2,6 +2,8 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #191919;;
+    color: #dddddd;
 }
 
 h1:focus {
@@ -92,8 +94,13 @@ a, .btn-link {
     height: 0.75rem;
 }
 
+.card {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #160a19 70%) !important;
+}
+
 .card-header {
     padding: 0.2rem;
+    background-color: rgb(9 50 89);
 }
 
 .card-body {
@@ -124,4 +131,50 @@ a, .btn-link {
     100% {
         opacity: 0;
     }
+}
+
+.loader {
+    color: #e1e1e1;
+}
+
+.bg-light {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #160a19 70%) !important;
+}
+
+.text-muted {
+    color: #c3c3c3 !important;
+}
+
+.crate {
+    background-color: #03182c;
+}
+
+.progress {
+    background-color: #002952;
+}
+
+.text-danger {
+    color: rgb(188 36 51) !important;
+}
+
+.border-top {
+    border-top: 1px solid #3c3c3c !important;
+}
+
+.jkbms {
+    max-width: 100%;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #bbbbbb;
+    color: black;
+}
+
+.form-control {
+    background-color: #d0d0d0
+}
+
+.btn-light {
+    background-color: #7d97b1;
+    border-color: #656769;
 }

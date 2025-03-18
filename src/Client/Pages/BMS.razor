@@ -17,7 +17,7 @@
             JK BMS
         </h5>
         <div class="card-body p-0">
-            <div class="container m-0 p-0">
+            <div class="container m-0 p-0 jkbms">
                 <div class="row text-center m-0 p-0">
                     <div class="col">
                         <div class="fw-bold fs-1 mt-2 text-primary">
@@ -26,7 +26,7 @@
                         <div class="fs-1 my-1 mx-5 border-top">
                             @status.CapacityPct%
                         </div>
-                        <div class="fs-5 pack-capacity m-0 border-top" style="cursor: pointer;" @onclick="ToggleCapacityKwh">
+                        <div class="fs-5 pack-capacity m-0 bg-light" style="cursor: pointer;" @onclick="ToggleCapacityKwh">
                             @(GetPackCapacity())
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row text-center m-1 p-1 fw-bold" style="font-size:0.8em; background-color:aliceblue">
+                <div class="row text-center m-1 p-1 fw-bold" style="font-size:0.8em; background-color:#272f36;">
                     <div class="col">
                         <div class="fw-normal">
                             Mosfet
@@ -90,7 +90,7 @@
                         <div class="fw-bold">
                             @($"{status.MinCell.Value:0.000} V")
                         </div>
-                        <div class="border-top pt-1">
+                        <div class="pt-1">
                             Max Cell: <span>@status.MaxCell.Key</span>
                         </div>
                         <div class="fw-bold">
@@ -104,7 +104,7 @@
                         <div class="fw-bold">
                             @($"{status.CellDiff:0.000} V")
                         </div>
-                        <div class="pt-1 border-top">
+                        <div class="pt-1">
                             Cell Average:
                         </div>
                         <div class="fw-bold">

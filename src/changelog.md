@@ -1,3 +1,4 @@
 ## changelog
 
-- fix charge mode display when not charging
+- change to a dark theme
+- fix ui bugs

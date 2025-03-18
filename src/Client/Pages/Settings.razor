@@ -26,7 +26,7 @@
                     Max Combined Charge Current (A):
                 </div>
                 <div class="col-6 p-2 bg-secondary">
-                    <input @bind-value=settings.MaxCombinedChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
+                    <input @bind-value=settings.MaxCombinedChargeCurrent class="form-control d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                     <button type="button" class="btn btn-light d-inline m-1"
                             @onclick="()=>SetChargeCurrent(Setting.CombinedChargeCurrent,settings.MaxCombinedChargeCurrent)">
                         <span class="@Spinner(Button.MaxCombinedChargeCurrent)"></span>
@@ -40,7 +40,7 @@
                     Max Grid Charge Current (A):
                 </div>
                 <div class="col-6 p-2 bg-secondary">
-                    <input @bind-value=settings.MaxACChargeCurrent class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
+                    <input @bind-value=settings.MaxACChargeCurrent class="form-control d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                     <button type="button" class="btn btn-light d-inline m-1"
                             @onclick="()=>SetChargeCurrent(Setting.UtilityChargeCurrent,settings.MaxACChargeCurrent)">
                         <span class="@Spinner(Button.MaxUtilityChargeCurrent)"></span>
@@ -109,7 +109,7 @@
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
                         <div>
-                            <input @bind-value=settings.BulkChargeVoltage class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
+                            <input @bind-value=settings.BulkChargeVoltage class="form-control d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                             <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetVoltage(Setting.BulkVoltage)">
                                 <span class="@Spinner(Button.BulkVoltage)"></span>
                                 <span class="@Hidden(Button.BulkVoltage)">Save</span>
@@ -125,7 +125,7 @@
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
                         <div>
-                            <input @bind-value=settings.FloatChargeVoltage class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
+                            <input @bind-value=settings.FloatChargeVoltage class="form-control d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                             <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetVoltage(Setting.FloatVoltage)">
                                 <span class="@Spinner(Button.FloatVoltage)"></span>
                                 <span class="@Hidden(Button.FloatVoltage)">Save</span>
@@ -141,7 +141,7 @@
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
                         <div>
-                            <input @bind-value=settings.DischargeCuttOffVoltage class="form-control bg-light d-inline m-1" style="width:4rem;" type="text"
+                            <input @bind-value=settings.DischargeCuttOffVoltage class="form-control d-inline m-1" style="width:4rem;" type="text"
                                    maxlength="4">
                             <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetVoltage(Setting.DischargeCutOff)">
                                 <span class="@Spinner(Button.DischargeCutOff)"></span>
@@ -158,7 +158,7 @@
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
                         <div>
-                            <input @bind-value=settings.BackToGridVoltage class="form-control bg-light d-inline m-1" style="width:4rem;" type="text" maxlength="4">
+                            <input @bind-value=settings.BackToGridVoltage class="form-control d-inline m-1" style="width:4rem;" type="text" maxlength="4">
                             <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetVoltage(Setting.BackToGrid)">
                                 <span class="@Spinner(Button.BackToGridVoltage)"></span>
                                 <span class="@Hidden(Button.BackToGridVoltage)">Save</span>
@@ -174,7 +174,7 @@
                 <div class="col-6 bg-secondary p-1">
                     <div class="row">
                         <div>
-                            <input @bind-value=settings.BackToBatteryVoltage class="form-control bg-light d-inline m-1" style="width:4rem;" type="text"
+                            <input @bind-value=settings.BackToBatteryVoltage class="form-control d-inline m-1" style="width:4rem;" type="text"
                                    maxlength="4">
                             <button type="button" class="btn btn-light d-inline m-1" @onclick="()=>SetVoltage(Setting.BackToBattery)">
                                 <span class="@Spinner(Button.BackToBattery)"></span>
@@ -194,7 +194,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
                         <div style="width:6rem;">
-                            <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.PV_MaxCapacity>
+                            <input type="number" class="form-control" @bind-value=settings.SystemSpec.PV_MaxCapacity>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Watts</div>
                     </div>
@@ -207,7 +207,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
                         <div style="width:6rem;">
-                            <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.BatteryCapacity>
+                            <input type="number" class="form-control" @bind-value=settings.SystemSpec.BatteryCapacity>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Ah</div>
                     </div>
@@ -220,7 +220,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
                         <div style="width:6rem;">
-                            <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.BatteryNominalVoltage>
+                            <input type="number" class="form-control" @bind-value=settings.SystemSpec.BatteryNominalVoltage>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">V</div>
                     </div>
@@ -233,7 +233,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
                         <div style="width:6rem;">
-                            <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.SunlightStartHour>
+                            <input type="number" class="form-control" @bind-value=settings.SystemSpec.SunlightStartHour>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Hrs</div>
                     </div>
@@ -246,7 +246,7 @@
                 <div class="col-6 p-2 bg-secondary">
                     <div class="row">
                         <div style="width:6rem;">
-                            <input type="number" class="form-control bg-light" @bind-value=settings.SystemSpec.SunlightEndHour>
+                            <input type="number" class="form-control" @bind-value=settings.SystemSpec.SunlightEndHour>
                         </div>
                         <div class="col-1 fw-bolder fs-5 m-1 text-white">Hrs</div>
                     </div>
