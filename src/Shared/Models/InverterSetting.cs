@@ -32,6 +32,6 @@ public enum ChargeMode : ushort
 {
     NONE = 0,
     BULK = 1,
-    ABSORPTION = 2,
+    ABSORB = 2,
     FLOAT = 3
 }

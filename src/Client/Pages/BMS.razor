@@ -11,7 +11,7 @@
 
 @if (status is not null)
 {
-    <div class="card">
+    <div class="card mt-2">
         <h5 class="card-header fw-bold">
             <span class="oi oi-battery-empty" aria-hidden="true"></span>
             JK BMS
@@ -26,7 +26,7 @@
                         <div class="fs-1 my-1 mx-5 border-top">
                             @status.CapacityPct%
                         </div>
-                        <div class="fs-5 pack-capacity m-0 bg-light" style="cursor: pointer;" @onclick="ToggleCapacityKwh">
+                        <div class="fs-5 pack-capacity m-0" style="cursor: pointer; background-color: #505e8b42;" @onclick="ToggleCapacityKwh">
                             @(GetPackCapacity())
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row text-center m-1 p-1 fw-bold" style="font-size:0.8em; background-color:#272f36;">
+                <div class="row text-center m-1 p-1 fw-bold" style="font-size:0.8em; background-color:#0000003b;">
                     <div class="col">
                         <div class="fw-normal">
                             Mosfet
