@@ -12,9 +12,21 @@ public partial class Main : Form
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool UnregisterHotKey(IntPtr hWnd, int id);
 
+    void SetTitleBarColor(Color color)
+    {
+        var colorValue = color.R | (color.G << 8) | (color.B << 16);
+        DwmSetWindowAttribute(Handle, DWMWA_CAPTION_COLOR, ref colorValue, sizeof(int));
+    }
+
+    [DllImport("dwmapi.dll")]
+    static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+    const int DWMWA_CAPTION_COLOR = 35;
+
     public Main()
     {
         InitializeComponent();
+        SetTitleBarColor(Color.Black);
         TrayIcon.Click += TrayIcon_Click;
         Load += Main_Load;
         FormClosed += Main_FormClosed;
@@ -62,13 +74,10 @@ public partial class Main : Form
             {
                 case 1: // Alt+I hotkey
                     if (WindowState == FormWindowState.Normal)
-                    {
                         WindowState = FormWindowState.Minimized;
-                    }
                     else
-                    {
                         TrayIcon_Click(null, null!);
-                    }
+
                     break;
             }
         }
