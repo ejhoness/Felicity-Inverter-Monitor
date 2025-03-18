@@ -14,7 +14,7 @@ After the correct USB device path is setup, all you have to do is execute the `I
 
 After the application has started successfully, you can simply open up a web browser and navigate to `http://ip.address.of.machine` or `http://localhost` if the app is running in the same machine as your web browser, to see the dashboard. It may take up to 5 seconds for the data to show up initially.
 
-If you have a firewall, please open port `80` to facilitate communication, pr change the port in the `appsettings.json` file.
+If you have a firewall, please open port `80` to facilitate communication, or change the port in the `appsettings.json` file.
 
 In order to make the application/server automatically start at boot in Linux, follow the below procedure to create a `systemd` service.
 
