@@ -74,5 +74,5 @@ Esta configuração do cabo deve permitir a comunicação RS232 entre seu invers
 
 wiring new conector 
 <img src="connectordb9torj45.jpg"/>
-<img src="connectordb9torj45.jpg"/>
+<img src="conectordb9torj45upside.jpg"/>
 
