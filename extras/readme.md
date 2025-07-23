@@ -73,6 +73,6 @@ Esta configuração do cabo deve permitir a comunicação RS232 entre seu invers
 "TNKS gemini"
 
 wiring new conector 
-<img src="extras/conector1.jpg"/>
-<img src="extras/conector2.jpg"/>
+<img src="connectordb9torj45.jpg"/>
+<img src="connectordb9torj45.jpg"/>
 
