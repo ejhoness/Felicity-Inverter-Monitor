@@ -76,19 +76,43 @@ wiring new conector
 <img src="connectordb9torj45.jpg"/>
 <img src="conectordb9torj45upside.jpg"/>
 data from battery rs485 or canbus i try to get data from all, 
-<img src="felicitybatterypinout.jpeg"/> cable incluso with pinnames 
+<img src="felicitybatterypinout.jpeg"/> 
+cable incluso with pinnames canbus and 485 triger power ? 12v.? how amp drain, 
 
 esphome or pihome and hole and...
 
-esphome espmodule serial ttl
+power esp usb charger
+esphome espmodule serial ttl 
+extras 
+relês to very low draim or to power ssr 
+led
+sensors 
+extras pins
 
+power bbtpiv1.2, 12v 2 amp or more max 25v or 5v 3 amp charger
 bttpiv1.2 pihome serial ttl rs485 canbus 
+extras
+servers pihole 
+usb ports
+can bus port
+led
+sensors 
+extras pins
 
 https://github.com/slipx06/Sunsynk-Home-Assistant-Dash
 
 https://github.com/nygma2004/growatt2mqtt
 
+https://github.com/volkszaehler/mbmd
 
+https://github.com/OpenInverterGateway/OpenInverterGateway/tree/master
+https://github.com/fboundy/ha_solis_modbus
+
+https://github.com/sebastianheyn/felicityess2mqtt
+https://github.com/DM6JM/FelicityConverter
+https://github.com/seb-spec/dbus-serialBattery-FelicityESS
+https://github.com/mfischer-ffb/Felicity_ESP32/blob/main/Felicity_ESP32.ino
+https://github.com/tgfuellner/Esphome-FelicityESS
 
 
 
