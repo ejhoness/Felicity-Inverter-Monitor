@@ -75,4 +75,20 @@ Esta configuração do cabo deve permitir a comunicação RS232 entre seu invers
 wiring new conector 
 <img src="connectordb9torj45.jpg"/>
 <img src="conectordb9torj45upside.jpg"/>
+data from battery rs485 or canbus i try to get data from all, 
+<img src="felicitybatterypinout.jpeg"/> cable incluso with pinnames 
+
+esphome or pihome and hole and...
+
+esphome espmodule serial ttl
+
+bttpiv1.2 pihome serial ttl rs485 canbus 
+
+https://github.com/slipx06/Sunsynk-Home-Assistant-Dash
+
+https://github.com/nygma2004/growatt2mqtt
+
+
+
+
 
