@@ -35,9 +35,35 @@ http://192.168.1.2 klipper
 
 http://192.168.1.2:8080/admin/ pihole
 
-http://192.168.1.2:8123
+http://192.168.1.2:8123 home assistante
+
+http://192.168.1.2:8081 Felicity-Inverter-Monitor
+
 
 
 change ip to wired and fix .103 wifi
 
 another controller to expand port pins to make more easy pinout usb rp 2040?
+
+new day
+
+today 24-07-25 power wires on install power line and data cables, wifi conection, 
+
+ls -l /dev/ttyS0 e ls -l /dev/ttyUSB0
+sudo usermod -a -G dialout $USER
+sudo apt-get install screen
+
+ls -l /dev/serial*
+ls -l /dev/ttyS*
+
+dmesg | grep tty
+sudo nano /boot/armbianEnv.txt
+sudo shutdown -r now
+
+i try to usb ttl to make ttyUSB1
+
+i not sure ttyS0 fuctional, not find txrx :(
+
+https://github.com/hoylabs/OpenDTU-OnBattery
+
+
