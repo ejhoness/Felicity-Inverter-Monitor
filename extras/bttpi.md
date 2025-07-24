@@ -29,10 +29,14 @@ http://192.168.1.103:8080 pihole
 
 http://192.168.1.103 klipper
 
-https://192.168.1.2:9090/system
-https://192.168.1.2 klipper
-https://192.168.1.2:8080 pihole
-https://192.168.1.2:8123
+http://192.168.1.2:9090/system
+
+http://192.168.1.2 klipper
+
+http://192.168.1.2:8080/admin/ pihole
+
+http://192.168.1.2:8123
+
 
 change ip to wired and fix .103 wifi
 
