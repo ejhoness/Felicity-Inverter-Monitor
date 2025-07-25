@@ -76,8 +76,11 @@ wiring new conector
 <img src="connectordb9torj45.jpg"/>
 <img src="conectordb9torj45upside.jpg"/>
 data from battery rs485 or canbus i try to get data from all, 
+quando rs485 usb plugado sem somunicação com o inversor bateria
 <img src="felicitybatterypinout.jpeg"/> 
 cable incluso with pinnames canbus and 485 triger power ? 12v.? how amp drain, 
+cable incluso db9 rj45 4 wires rs232 tx rx gnd adn +12v.
+
 
 esphome or pihome and hole and...
 
@@ -114,5 +117,31 @@ https://github.com/seb-spec/dbus-serialBattery-FelicityESS
 https://github.com/mfischer-ffb/Felicity_ESP32/blob/main/Felicity_ESP32.ino
 https://github.com/tgfuellner/Esphome-FelicityESS
 
+tnks gemini
+25/07/2025
+Isso é EXCELENTE e é a informação crítica que precisávamos!
 
+Você forneceu a pinagem específica do seu inversor na porta RJ45 e a forma como você está conectando-a ao seu conector DB9.
+
+Vamos analisar a sua "Explicação da Conexão":
+
+TX (RJ45 Pino 1) para RXD (DB9 Pino 2): Correto. Este é o cruzamento essencial. O pino de transmissão (TX) do inversor (saída de dados) deve se conectar ao pino de recepção (RXD) do seu dispositivo (espera receber dados).
+
+RX (RJ45 Pino 2) para TXD (DB9 Pino 3): Correto. Da mesma forma, o pino de recepção (RX) do inversor (espera receber dados) deve se conectar ao pino de transmissão (TXD) do seu dispositivo (saída de dados).
+
+GND (RJ45 Pino 8) para GND (DB9 Pino 5): Correto. O terra é absolutamente fundamental para que os sinais tenham uma referência comum de voltagem e possam ser interpretados corretamente.
+
+Com base nesta pinagem que você forneceu para o RJ45 do inversor e a sua descrição do cruzamento para o DB9, a fiação física entre o inversor e o seu conector DB9 parece estar correta e seguir os princípios do RS232 (TX de um para RX do outro).
+
+Agora que esta parte da fiação foi confirmada, se você ainda enfrentar problemas de comunicação ("Nenhum Slave ID responsivo"), os próximos pontos a verificar serão:
+
+A integridade do cabo entre o DB9 e o módulo MAX232 e entre o MAX232 e o FTDI: Certifique-se de que não há fios soltos ou conexões incorretas nas suas soldagens para o MAX232 e o FTDI. (Relembrando: TX do MAX232 para RX do FTDI, e RX do MAX232 para TX do FTDI, e GND).
+
+Configurações Modbus no Inversor: Confirme que o Modbus está habilitado e qual o Slave ID configurado no próprio inversor.
+
+Baud Rate do Inversor: Mesmo que o manual diga 2400, se você ainda vir "lixo" no screen, pode ser que a taxa de baud do inversor seja outra.
+
+Falha de Componente: Em último caso, pode haver um problema com o módulo MAX232, o adaptador FTDI, ou a porta RS232 do inversor.
+
+Mas esta é uma grande validação em sua montagem!
 
