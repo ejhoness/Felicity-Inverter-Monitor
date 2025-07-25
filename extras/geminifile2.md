@@ -261,3 +261,7 @@ if client.connect():
     print("Conexão Modbus fechada.")
 else:
     print("Falha ao conectar ao inversor. Verifique a porta serial, as permissões e o inversor.")
+
+```
+python3 read_inverter_data.py
+edit file to set ttyUSB1
