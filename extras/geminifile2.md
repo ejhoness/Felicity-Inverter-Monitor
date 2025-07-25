@@ -105,6 +105,7 @@ A biblioteca `pymodbus` é excelente para criar um cliente Modbus (mestre) que p
 Crie um arquivo Python (ex: `read_inverter_data.py`) com o seguinte conteúdo:
 
 ```python
+#sudo apt install python3-pymodbus
 #sudo apt update
 #Instale o pip para Python 3 (recomendado):
 # sudo apt install python3-pip
