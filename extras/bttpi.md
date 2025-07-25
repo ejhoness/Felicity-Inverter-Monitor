@@ -66,4 +66,35 @@ i not sure ttyS0 fuctional, not find txrx :(
 
 https://github.com/hoylabs/OpenDTU-OnBattery
 
+new again
 
+192.168.1.2 mainsail
+192.168.1.2:81 fluid
+192.168.1.2:8080 pihole
+192.168.1.2:8081 invertmoon
+192.168.1.2:8123 home assistant
+192.168.1.2:9090 cockpit
+
+need adjust swap memory ? less 512mb ? change to 2 gb. swap memory chip to chips 2gb ?
+install ftdi to give anhoter port 
+
+lsusb                                                                                                                                         <master>
+Bus 007 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 004 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 006 Device 002: ID 1a86:7523 QinHeng Electronics CH340 serial converter
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 008 Device 002: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC
+Bus 008 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+ttyUSB0
+ttyUSB1
+
+screen
+tanks Gemini
+20210608B.1.1.pdf
+Create trans_pdf_felicitycomunication.md
+[Protocolo de Comunicação do Inversor](trans_pdf_felicitycomunication.md)
