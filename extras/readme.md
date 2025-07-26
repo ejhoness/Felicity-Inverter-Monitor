@@ -227,3 +227,10 @@ finally:
 
 ```
 
+sudo lsof -i :8081
+sudo netstat -tulnp | grep 8081
+sudo lsof /dev/ttyUSB0
+sudo kill -9 PID
+
+
+
