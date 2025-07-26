@@ -145,3 +145,4 @@ Falha de Componente: Em último caso, pode haver um problema com o módulo MAX23
 
 Mas esta é uma grande validação em sua montagem!
 
+screen /dev/ttyUSB2 9600
