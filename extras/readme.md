@@ -1,3 +1,8 @@
+
+today 26
+no comunication...
+:(
+checar algo, GND (RJ45 Pino 8) para GND (DB9 Pino 5): O terra (GND) é fundamental para estabelecer uma referência de tensão comum entre os dois dispositivos. É crucial que o GND seja conectado corretamente para que os sinais de dados possam ser interpretados.
 #extra files
 
 start
